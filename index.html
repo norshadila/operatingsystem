@@ -1,0 +1,2523 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SFC21633 Operating System | Kolej Komuniti Sungai Siput</title>
+    <!-- Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        navy: {
+                            800: '#1e293b',
+                            900: '#0f172a',
+                            950: '#020617',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+            color: #1e293b;
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+        .fade-in {
+            animation: fadeIn 0.3s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+    <!-- Top Institution Banner & Header -->
+    <header class="bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white shadow-lg sticky top-0 z-40">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+            <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                <div class="flex items-start sm:items-center gap-3.5">
+                    <div class="bg-indigo-600/30 border border-indigo-400/30 p-2.5 rounded-xl flex-shrink-0">
+                        <svg class="w-8 h-8 text-indigo-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                        </svg>
+                    </div>
+                    <div>
+                        <div class="flex flex-wrap items-center gap-2">
+                            <span class="px-2.5 py-0.5 text-xs font-bold tracking-wider uppercase bg-indigo-500/20 text-indigo-200 border border-indigo-400/30 rounded-md">
+                                SFC21633
+                            </span>
+                            <span class="text-xs text-slate-300 font-medium">
+                                Kolej Komuniti Sungai Siput • Information Technology Certificate
+                            </span>
+                        </div>
+                        <h1 class="text-xl sm:text-2xl font-extrabold tracking-tight text-white mt-0.5">
+                            OPERATING SYSTEM
+                        </h1>
+                        <p class="text-xs sm:text-sm text-slate-300">
+                            Pensyarah: <span class="font-semibold text-indigo-200">Ts. Norshadila Binti Ahmad Badela</span>
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Global Formative Progress Pill -->
+                <div class="bg-slate-800/80 border border-slate-700 rounded-xl px-4 py-2.5 flex items-center justify-between md:justify-end gap-4">
+                    <div>
+                        <p class="text-[11px] uppercase tracking-wider text-slate-400 font-semibold">Skor Formatif Sesi</p>
+                        <div class="flex items-baseline gap-1.5">
+                            <span id="global-score" class="text-xl font-bold text-emerald-400">0</span>
+                            <span class="text-xs text-slate-400">/ <span id="global-max">28</span> markah</span>
+                        </div>
+                    </div>
+                    <div class="w-12 h-12 rounded-full bg-slate-900 border-2 border-emerald-500/40 flex items-center justify-center">
+                        <span id="global-percent" class="text-xs font-bold text-emerald-300">0%</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Navigation Tabs -->
+            <nav class="flex overflow-x-auto gap-1.5 sm:gap-2 mt-4 pt-3 border-t border-slate-800 no-scrollbar" aria-label="Navigasi Utama">
+                <button onclick="switchMainTab('outline')" id="tab-btn-outline" class="main-tab-btn active flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-semibold whitespace-nowrap transition-all bg-indigo-600 text-white shadow-sm">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+                    <span>1. Course Outline &amp; RMS</span>
+                </button>
+                <button onclick="switchMainTab('notes')" id="tab-btn-notes" class="main-tab-btn flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-semibold whitespace-nowrap transition-all text-slate-300 hover:bg-slate-800 hover:text-white">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+                    <span>2. Nota Kuliah (Bab 1–5)</span>
+                </button>
+                <button onclick="switchMainTab('formative')" id="tab-btn-formative" class="main-tab-btn flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-semibold whitespace-nowrap transition-all text-slate-300 hover:bg-slate-800 hover:text-white">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
+                    <span>3. Aktiviti Formatif</span>
+                </button>
+                <button onclick="switchMainTab('summative')" id="tab-btn-summative" class="main-tab-btn flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-semibold whitespace-nowrap transition-all text-slate-300 hover:bg-slate-800 hover:text-white">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/></svg>
+                    <span>4. Penilaian Sumatif (CA)</span>
+                </button>
+                <button onclick="switchMainTab('revision')" id="tab-btn-revision" class="main-tab-btn flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-semibold whitespace-nowrap transition-all text-slate-300 hover:bg-slate-800 hover:text-white">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                    <span>5. Ulang Kaji Akhir (20 MCQ)</span>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Notification Toast (Replaces alert()) -->
+    <div id="toast-box" class="fixed bottom-5 right-5 z-50 hidden max-w-sm bg-slate-900 text-white px-4 py-3 rounded-xl shadow-xl border border-slate-700 flex items-center gap-3 transition-all">
+        <span id="toast-icon" class="text-emerald-400 text-lg">✔</span>
+        <p id="toast-message" class="text-sm font-medium"></p>
+    </div>
+
+    <!-- MAIN CONTENT CONTAINER -->
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+        <!-- ===================================================================== -->
+        <!-- TAB 1: COURSE OUTLINE & JADUAL MINGGUAN (M1 - M14)                    -->
+        <!-- ===================================================================== -->
+        <section id="section-outline" class="main-section fade-in space-y-8">
+            <!-- Course Metadata Cards -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <!-- Sinopsis & Info -->
+                <div class="lg:col-span-2 bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
+                    <div class="flex items-center justify-between mb-4">
+                        <h2 class="text-lg font-bold text-slate-900 flex items-center gap-2">
+                            <span class="w-2 h-6 bg-indigo-600 rounded-full"></span>
+                            Maklumat &amp; Sinopsis Kursus
+                        </h2>
+                        <span class="text-xs font-semibold px-3 py-1 rounded-full bg-indigo-50 text-indigo-700 border border-indigo-200">
+                            Course Outline Rasmi • Edisi 2026
+                        </span>
+                    </div>
+
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-5">
+                        <div class="bg-slate-50 p-3 rounded-xl border border-slate-100">
+                            <p class="text-xs text-slate-500">Kod Kursus</p>
+                            <p class="font-bold text-slate-900 text-sm sm:text-base">SFC21633</p>
+                        </div>
+                        <div class="bg-slate-50 p-3 rounded-xl border border-slate-100">
+                            <p class="text-xs text-slate-500">Nilai Kredit</p>
+                            <p class="font-bold text-slate-900 text-sm sm:text-base">3 Kredit</p>
+                        </div>
+                        <div class="bg-slate-50 p-3 rounded-xl border border-slate-100">
+                            <p class="text-xs text-slate-500">Agihan Markah</p>
+                            <p class="font-bold text-slate-900 text-sm sm:text-base">70% CA • 30% FE</p>
+                        </div>
+                        <div class="bg-slate-50 p-3 rounded-xl border border-slate-100">
+                            <p class="text-xs text-slate-500">Tempoh</p>
+                            <p class="font-bold text-slate-900 text-sm sm:text-base">14 Minggu (M1–M14)</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-indigo-50/60 border border-indigo-100 rounded-xl p-4 mb-4">
+                        <h3 class="text-xs font-bold uppercase tracking-wider text-indigo-800 mb-1">Sinopsis Kursus</h3>
+                        <p class="text-sm text-slate-700 leading-relaxed">
+                            Kursus <strong>Operating System (SFC21633)</strong> memperkenalkan perisian sistem yang bertanggungjawab mengurus perkakasan komputer, sumber perisian, dan menyediakan perkhidmatan kepada program aplikasi. Ia merangkumi evolusi dan komponen utama sistem pengoperasian di samping meneroka reka bentuk, pelaksanaan, proses pemasangan (<em>installation</em>), konfigurasi, serta pelbagai jenis sistem pengoperasian di pasaran.
+                        </p>
+                    </div>
+
+                    <!-- Recommended Contact Hours Summary -->
+                    <div class="grid grid-cols-2 sm:grid-cols-5 gap-2 text-center text-xs">
+                        <div class="p-2.5 rounded-xl bg-slate-50 border border-slate-200/80">
+                            <span class="font-bold text-indigo-700 block">Topik 1.0</span>
+                            <span class="text-slate-600">1j Kuliah</span>
+                        </div>
+                        <div class="p-2.5 rounded-xl bg-slate-50 border border-slate-200/80">
+                            <span class="font-bold text-indigo-700 block">Topik 2.0</span>
+                            <span class="text-slate-600">4j Kuliah</span>
+                        </div>
+                        <div class="p-2.5 rounded-xl bg-slate-50 border border-slate-200/80">
+                            <span class="font-bold text-indigo-700 block">Topik 3.0</span>
+                            <span class="text-slate-600">3j Kuliah</span>
+                        </div>
+                        <div class="p-2.5 rounded-xl bg-slate-50 border border-slate-200/80">
+                            <span class="font-bold text-indigo-700 block">Topik 4.0</span>
+                            <span class="text-slate-600">20j Kuliah • 28j Amali</span>
+                        </div>
+                        <div class="col-span-2 sm:col-span-1 p-2.5 rounded-xl bg-slate-50 border border-slate-200/80">
+                            <span class="font-bold text-indigo-700 block">Topik 5.0</span>
+                            <span class="text-slate-600">3j Kuliah • 8j Amali</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CLO & PLO Mapping -->
+                <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 flex flex-col justify-between">
+                    <div>
+                        <h2 class="text-lg font-bold text-slate-900 flex items-center gap-2 mb-4">
+                            <span class="w-2 h-6 bg-emerald-500 rounded-full"></span>
+                            Hasil Pembelajaran (CLO)
+                        </h2>
+                        <div class="space-y-3">
+                            <div class="p-3 rounded-xl bg-slate-50 border border-slate-200/80">
+                                <div class="flex items-center justify-between mb-1">
+                                    <span class="text-xs font-bold text-indigo-700 bg-indigo-100 px-2 py-0.5 rounded">CLO 1</span>
+                                    <span class="text-[11px] font-semibold text-slate-500">P3, PLO3</span>
+                                </div>
+                                <p class="text-xs text-slate-700 leading-relaxed">
+                                    Mengikuti proses pemasangan sistem pengoperasian sambil mengkonfigurasi tetapan komputer yang sesuai.
+                                </p>
+                            </div>
+                            <div class="p-3 rounded-xl bg-slate-50 border border-slate-200/80">
+                                <div class="flex items-center justify-between mb-1">
+                                    <span class="text-xs font-bold text-indigo-700 bg-indigo-100 px-2 py-0.5 rounded">CLO 2</span>
+                                    <span class="text-[11px] font-semibold text-slate-500">A2, PLO4</span>
+                                </div>
+                                <p class="text-xs text-slate-700 leading-relaxed">
+                                    Mengamalkan interaksi yang berkesan bersama rakan sebaya dalam mentadbir sistem pengoperasian.
+                                </p>
+                            </div>
+                            <div class="p-3 rounded-xl bg-slate-50 border border-slate-200/80">
+                                <div class="flex items-center justify-between mb-1">
+                                    <span class="text-xs font-bold text-indigo-700 bg-indigo-100 px-2 py-0.5 rounded">CLO 3</span>
+                                    <span class="text-[11px] font-semibold text-slate-500">A3, PLO9</span>
+                                </div>
+                                <p class="text-xs text-slate-700 leading-relaxed">
+                                    Melaporkan langkah demi langkah proses pemasangan sistem pengoperasian bagi mencerminkan kemahiran personal yang berkesan.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-slate-100 text-[11px] text-slate-500">
+                        <strong>Rujukan Utama:</strong> Tanenbaum &amp; Bos (2022) <em>Modern Operating Systems (5th Ed.)</em>, Jocelyn (2022), Silberschatz et al. (2021).
+                    </div>
+                </div>
+            </div>
+
+            <!-- Rancangan Mengajar Semester (RMS) M1 - M14 -->
+            <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
+                <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
+                    <div>
+                        <h2 class="text-lg font-bold text-slate-900 flex items-center gap-2">
+                            <span class="w-2 h-6 bg-indigo-600 rounded-full"></span>
+                            Rancangan Mengajar Mingguan (M1 – M14)
+                        </h2>
+                        <p class="text-xs text-slate-500 mt-0.5">Struktur pengajaran mengikut minggu tanpa tarikh kalendar (guna semula setiap semester).</p>
+                    </div>
+
+                    <!-- Search and Filter Controls -->
+                    <div class="flex flex-col sm:flex-row gap-2.5">
+                        <div class="relative">
+                            <input type="text" id="rms-search" onkeyup="filterRMS()" placeholder="Cari topik atau subtopik..." class="w-full sm:w-60 pl-9 pr-3 py-2 text-sm border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+                            <svg class="w-4 h-4 text-slate-400 absolute left-3 top-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                        </div>
+                        <select id="rms-chapter-filter" onchange="filterRMS()" class="px-3 py-2 text-sm border border-slate-300 rounded-xl bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                            <option value="all">Semua Bab (1.0 – 5.0)</option>
+                            <option value="1.0">Bab 1.0: Introduction to OS</option>
+                            <option value="2.0">Bab 2.0: Memory &amp; Process</option>
+                            <option value="3.0">Bab 3.0: File Management</option>
+                            <option value="4.0">Bab 4.0: Windows OS</option>
+                            <option value="5.0">Bab 5.0: Mobile Device OS</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="overflow-x-auto rounded-xl border border-slate-200">
+                    <table class="min-w-full divide-y divide-slate-200 text-sm">
+                        <thead class="bg-slate-900 text-white">
+                            <tr>
+                                <th scope="col" class="px-4 py-3.5 text-left font-semibold w-20">Minggu</th>
+                                <th scope="col" class="px-4 py-3.5 text-left font-semibold">Topik &amp; Subtopik</th>
+                                <th scope="col" class="px-4 py-3.5 text-left font-semibold w-44">Aktiviti PdP</th>
+                                <th scope="col" class="px-4 py-3.5 text-left font-semibold w-48">Penilaian &amp; Tindakan</th>
+                            </tr>
+                        </thead>
+                        <tbody id="rms-table-body" class="divide-y divide-slate-200 bg-white">
+                            <!-- Populated by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===================================================================== -->
+        <!-- TAB 2: NOTA KULIAH INTERAKTIF (BAB 1 HINGGA BAB 5)                    -->
+        <!-- ===================================================================== -->
+        <section id="section-notes" class="main-section hidden fade-in space-y-6">
+            <!-- Chapter Selector Buttons -->
+            <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200">
+                <p class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-3">Pilih Modul / Bab Kuliah:</p>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-2.5">
+                    <button onclick="selectNoteChapter(1)" id="note-btn-1" class="note-chap-btn text-left p-3 rounded-xl border-2 border-indigo-600 bg-indigo-50 transition-all">
+                        <span class="text-xs font-bold text-indigo-700 block">BAB 1</span>
+                        <span class="text-sm font-bold text-slate-900 line-clamp-1">Introduction to OS</span>
+                    </button>
+                    <button onclick="selectNoteChapter(2)" id="note-btn-2" class="note-chap-btn text-left p-3 rounded-xl border border-slate-200 hover:border-indigo-300 bg-white transition-all">
+                        <span class="text-xs font-bold text-slate-500 block">BAB 2</span>
+                        <span class="text-sm font-bold text-slate-900 line-clamp-1">Memory &amp; Process</span>
+                    </button>
+                    <button onclick="selectNoteChapter(3)" id="note-btn-3" class="note-chap-btn text-left p-3 rounded-xl border border-slate-200 hover:border-indigo-300 bg-white transition-all">
+                        <span class="text-xs font-bold text-slate-500 block">BAB 3</span>
+                        <span class="text-sm font-bold text-slate-900 line-clamp-1">File Management</span>
+                    </button>
+                    <button onclick="selectNoteChapter(4)" id="note-btn-4" class="note-chap-btn text-left p-3 rounded-xl border border-slate-200 hover:border-indigo-300 bg-white transition-all">
+                        <span class="text-xs font-bold text-slate-500 block">BAB 4</span>
+                        <span class="text-sm font-bold text-slate-900 line-clamp-1">Windows OS</span>
+                    </button>
+                    <button onclick="selectNoteChapter(5)" id="note-btn-5" class="note-chap-btn text-left p-3 rounded-xl border border-slate-200 hover:border-indigo-300 bg-white transition-all">
+                        <span class="text-xs font-bold text-slate-500 block">BAB 5</span>
+                        <span class="text-sm font-bold text-slate-900 line-clamp-1">Mobile Device OS</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Chapter Content Container -->
+            <div id="note-content-area" class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 sm:p-8">
+                <!-- Dynamically injected note content -->
+            </div>
+        </section>
+
+        <!-- ===================================================================== -->
+        <!-- TAB 3: AKTIVITI FORMATIF (SETIAP SESI KELAS)                          -->
+        <!-- ===================================================================== -->
+        <section id="section-formative" class="main-section hidden fade-in space-y-6">
+            <!-- Session Selector & Progress Bar -->
+            <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
+                <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-5">
+                    <div>
+                        <h2 class="text-xl font-bold text-slate-900">Aktiviti &amp; Penilaian Formatif Kelas</h2>
+                        <p class="text-sm text-slate-500">Pilih sesi pengajaran untuk menguji kefahaman anda secara interaktif.</p>
+                    </div>
+                    <button onclick="resetAllScores()" class="self-start md:self-auto px-3.5 py-2 text-xs font-semibold text-rose-600 bg-rose-50 hover:bg-rose-100 border border-rose-200 rounded-xl transition">
+                        Set Semula Semua Markah
+                    </button>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-2.5">
+                    <button onclick="selectFormativeSession(1)" id="form-btn-1" class="form-sess-btn p-3.5 rounded-xl border-2 border-indigo-600 bg-indigo-50 text-left transition-all">
+                        <div class="flex justify-between items-center mb-1">
+                            <span class="text-xs font-extrabold text-indigo-700">SESI 1 (BAB 1)</span>
+                            <span id="badge-sess-1" class="text-[11px] font-bold px-2 py-0.5 rounded-full bg-white text-slate-700 border border-slate-200">0/6</span>
+                        </div>
+                        <p class="text-sm font-bold text-slate-900">Asas Sistem OS</p>
+                    </button>
+
+                    <button onclick="selectFormativeSession(2)" id="form-btn-2" class="form-sess-btn p-3.5 rounded-xl border border-slate-200 bg-white hover:border-indigo-300 text-left transition-all">
+                        <div class="flex justify-between items-center mb-1">
+                            <span class="text-xs font-extrabold text-slate-500">SESI 2 (BAB 2)</span>
+                            <span id="badge-sess-2" class="text-[11px] font-bold px-2 py-0.5 rounded-full bg-slate-100 text-slate-700">0/6</span>
+                        </div>
+                        <p class="text-sm font-bold text-slate-900">Memori &amp; Proses</p>
+                    </button>
+
+                    <button onclick="selectFormativeSession(3)" id="form-btn-3" class="form-sess-btn p-3.5 rounded-xl border border-slate-200 bg-white hover:border-indigo-300 text-left transition-all">
+                        <div class="flex justify-between items-center mb-1">
+                            <span class="text-xs font-extrabold text-slate-500">SESI 3 (BAB 3)</span>
+                            <span id="badge-sess-3" class="text-[11px] font-bold px-2 py-0.5 rounded-full bg-slate-100 text-slate-700">0/6</span>
+                        </div>
+                        <p class="text-sm font-bold text-slate-900">Fail &amp; Permission</p>
+                    </button>
+
+                    <button onclick="selectFormativeSession(4)" id="form-btn-4" class="form-sess-btn p-3.5 rounded-xl border border-slate-200 bg-white hover:border-indigo-300 text-left transition-all">
+                        <div class="flex justify-between items-center mb-1">
+                            <span class="text-xs font-extrabold text-slate-500">SESI 4 (BAB 4)</span>
+                            <span id="badge-sess-4" class="text-[11px] font-bold px-2 py-0.5 rounded-full bg-slate-100 text-slate-700">0/6</span>
+                        </div>
+                        <p class="text-sm font-bold text-slate-900">Windows OS</p>
+                    </button>
+
+                    <button onclick="selectFormativeSession(5)" id="form-btn-5" class="form-sess-btn p-3.5 rounded-xl border border-slate-200 bg-white hover:border-indigo-300 text-left transition-all">
+                        <div class="flex justify-between items-center mb-1">
+                            <span class="text-xs font-extrabold text-slate-500">SESI 5 (BAB 5)</span>
+                            <span id="badge-sess-5" class="text-[11px] font-bold px-2 py-0.5 rounded-full bg-slate-100 text-slate-700">0/4</span>
+                        </div>
+                        <p class="text-sm font-bold text-slate-900">Mobile OS</p>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Interactive Quiz / Activity Workspace -->
+            <div id="formative-workspace" class="space-y-6">
+                <!-- Dynamically injected session activities -->
+            </div>
+        </section>
+
+        <!-- ===================================================================== -->
+        <!-- TAB 4: PENILAIAN SUMATIF (CONTINUOUS ASSESSMENT & FINAL)              -->
+        <!-- ===================================================================== -->
+        <section id="section-summative" class="main-section hidden fade-in space-y-8">
+            <!-- Weightage Overview Banner -->
+            <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
+                <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
+                    <div>
+                        <h2 class="text-xl font-bold text-slate-900">Struktur Penilaian Sumatif Kursus (SFC21633)</h2>
+                        <p class="text-sm text-slate-500">Pecahan markah berdasarkan Penilaian Berterusan (Continuous Assessment - 70%) dan Peperiksaan Akhir (FE - 30%).</p>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <span class="px-3 py-1.5 rounded-xl bg-indigo-50 text-indigo-700 font-bold text-xs border border-indigo-200">
+                            Continuous Assessment (CA): 70%
+                        </span>
+                        <span class="px-3 py-1.5 rounded-xl bg-slate-100 text-slate-800 font-bold text-xs border border-slate-300">
+                            Final Examination (FE): 30%
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Visual Progress Bar Breakdown -->
+                <div class="w-full h-5 bg-slate-100 rounded-full overflow-hidden flex shadow-inner mb-3">
+                    <div style="width: 15%" class="bg-indigo-600 h-full" title="Practical Task 1: 15%"></div>
+                    <div style="width: 15%" class="bg-blue-500 h-full" title="Practical Task 2: 15%"></div>
+                    <div style="width: 20%" class="bg-emerald-500 h-full" title="Presentation 1 & 2: 20%"></div>
+                    <div style="width: 20%" class="bg-amber-500 h-full" title="Technical Report: 20%"></div>
+                    <div style="width: 30%" class="bg-slate-700 h-full" title="Final Examination: 30%"></div>
+                </div>
+                <div class="flex flex-wrap gap-4 text-xs font-medium text-slate-600">
+                    <div class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-indigo-600"></span> Practical Task 1 (15%)</div>
+                    <div class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-blue-500"></span> Practical Task 2 (15%)</div>
+                    <div class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-emerald-500"></span> Presentation 1 &amp; 2 (20%)</div>
+                    <div class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-amber-500"></span> Technical Report (20%)</div>
+                    <div class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-slate-700"></span> Final Examination (30%)</div>
+                </div>
+            </div>
+
+            <!-- Panel Tetapan Pantas Pautan Penghantaran (CIDOS / Google Form) -->
+            <div class="bg-indigo-950 text-white rounded-2xl shadow-md border border-indigo-800 p-6">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
+                    <div>
+                        <span class="px-2.5 py-0.5 rounded bg-indigo-500/30 border border-indigo-400/30 text-indigo-200 text-[11px] font-bold uppercase tracking-wider">
+                            Panel Tetapan Pensyarah • Auto-Simpan Pelayar
+                        </span>
+                        <h3 class="text-lg font-bold text-white mt-1">Pautan Penghantaran Tugasan (CIDOS / Google Form)</h3>
+                        <p class="text-xs text-indigo-200">Tampal URL CIDOS atau Google Form bagi setiap penilaian CA di bawah. Pautan akan disimpan dalam pelayar (<code>localStorage</code>) untuk butang penghantaran di bawah.</p>
+                    </div>
+                    <div class="flex items-center gap-2 self-start sm:self-center">
+                        <button onclick="saveSubmissionLinks()" class="px-4 py-2.5 bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-bold text-xs rounded-xl transition shadow-sm whitespace-nowrap">
+                            Simpan Semua Pautan
+                        </button>
+                        <button onclick="clearSubmissionLinks()" class="px-3 py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold text-xs rounded-xl border border-slate-700 transition whitespace-nowrap">
+                            Kosongkan
+                        </button>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 text-xs">
+                    <div class="bg-slate-900/80 p-3.5 rounded-xl border border-indigo-800/80">
+                        <label for="input-link-pres" class="font-bold text-emerald-300 block mb-1.5">1. Presentation 1 &amp; 2 (M2)</label>
+                        <input type="url" id="input-link-pres" placeholder="https://cidos.edu.my/... atau Google Form" class="w-full px-3 py-2 rounded-lg bg-slate-950 border border-slate-700 text-white placeholder-slate-500 focus:outline-none focus:border-emerald-400">
+                    </div>
+                    <div class="bg-slate-900/80 p-3.5 rounded-xl border border-indigo-800/80">
+                        <label for="input-link-prac1" class="font-bold text-indigo-300 block mb-1.5">2. Practical Task 1 (M9)</label>
+                        <input type="url" id="input-link-prac1" placeholder="https://cidos.edu.my/... atau Google Form" class="w-full px-3 py-2 rounded-lg bg-slate-950 border border-slate-700 text-white placeholder-slate-500 focus:outline-none focus:border-indigo-400">
+                    </div>
+                    <div class="bg-slate-900/80 p-3.5 rounded-xl border border-indigo-800/80">
+                        <label for="input-link-report" class="font-bold text-amber-300 block mb-1.5">3. Technical Report (M11)</label>
+                        <input type="url" id="input-link-report" placeholder="https://cidos.edu.my/... atau Google Form" class="w-full px-3 py-2 rounded-lg bg-slate-950 border border-slate-700 text-white placeholder-slate-500 focus:outline-none focus:border-amber-400">
+                    </div>
+                    <div class="bg-slate-900/80 p-3.5 rounded-xl border border-indigo-800/80">
+                        <label for="input-link-prac2" class="font-bold text-blue-300 block mb-1.5">4. Practical Task 2 (M13)</label>
+                        <input type="url" id="input-link-prac2" placeholder="https://cidos.edu.my/... atau Google Form" class="w-full px-3 py-2 rounded-lg bg-slate-950 border border-slate-700 text-white placeholder-slate-500 focus:outline-none focus:border-blue-400">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Detailed Assessment Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- 1. Presentation 1 & 2 -->
+                <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 flex flex-col justify-between gap-5">
+                    <div>
+                        <div class="flex items-center justify-between gap-2 mb-3">
+                            <span class="px-3 py-1 rounded-lg bg-emerald-100 text-emerald-800 text-xs font-extrabold">MINGGU 2 (M2)</span>
+                            <span class="text-lg font-extrabold text-emerald-600">20% (2 Tugasan)</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-slate-900 mb-1">Presentation 1 &amp; 2</h3>
+                        <p class="text-xs font-semibold text-slate-500 mb-3">Pemetaan: CLO2 (A2, PLO4) • Bersemuka &amp; Pembentangan Kumpulan</p>
+                        <p class="text-sm text-slate-600 mb-4">
+                            Pembentangan berkumpulan mengenai struktur dan seni bina sistem pengoperasian serta teknik pengurusan dan perlindungan fail.
+                        </p>
+                        <div class="bg-slate-50 rounded-xl p-4 border border-slate-200/70 space-y-2">
+                            <p class="text-xs font-bold text-slate-800 uppercase">Senarai Semak Kriteria:</p>
+                            <label class="flex items-start gap-2.5 text-xs text-slate-700 cursor-pointer">
+                                <input type="checkbox" class="mt-0.5 rounded text-indigo-600">
+                                <span>Membentuk kumpulan &amp; memilih 1 topik (Struktur / Seni Bina / Produk OS / Kaedah Fail).</span>
+                            </label>
+                            <label class="flex items-start gap-2.5 text-xs text-slate-700 cursor-pointer">
+                                <input type="checkbox" class="mt-0.5 rounded text-indigo-600">
+                                <span>Menyediakan 1 visual/rajah sokongan yang jelas beserta 3 poin ringkas.</span>
+                            </label>
+                            <label class="flex items-start gap-2.5 text-xs text-slate-700 cursor-pointer">
+                                <input type="checkbox" class="mt-0.5 rounded text-indigo-600">
+                                <span>Komunikasi berpasukan &amp; sesi soal jawab bersama rakan sekelas.</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="pt-3 border-t border-slate-100 flex items-center justify-between gap-3">
+                        <span id="status-link-pres" class="text-[11px] font-medium text-slate-400">Belum ditetapkan</span>
+                        <button onclick="openSubmissionLink('pres')" class="px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold transition flex items-center gap-1.5 shadow-xs">
+                            <span>Hantar Tugasan / Buka CIDOS</span>
+                            <span>↗</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 2. Practical Task 1 -->
+                <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 flex flex-col justify-between gap-5">
+                    <div>
+                        <div class="flex items-center justify-between gap-2 mb-3">
+                            <span class="px-3 py-1 rounded-lg bg-indigo-100 text-indigo-800 text-xs font-extrabold">MINGGU 9 (M9)</span>
+                            <span class="text-lg font-extrabold text-indigo-600">15%</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-slate-900 mb-1">Practical Task 1: Windows Installation &amp; Config</h3>
+                        <p class="text-xs font-semibold text-slate-500 mb-3">Pemetaan: CLO1 (P3, PLO3) • Amali Makmal (VirtualBox)</p>
+                        <p class="text-sm text-slate-600 mb-4">
+                            Amali pemasangan sistem pengoperasian Microsoft Windows menggunakan perisian VirtualBox serta konfigurasi tetapan asas sistem.
+                        </p>
+                        <div class="bg-slate-50 rounded-xl p-4 border border-slate-200/70 space-y-2">
+                            <p class="text-xs font-bold text-slate-800 uppercase">Senarai Semak Tugasan Amali 1:</p>
+                            <label class="flex items-start gap-2.5 text-xs text-slate-700 cursor-pointer">
+                                <input type="checkbox" class="mt-0.5 rounded text-indigo-600">
+                                <span>Mencipta mesin maya (VM) baharu dalam VirtualBox dan melampirkan fail ISO Windows.</span>
+                            </label>
+                            <label class="flex items-start gap-2.5 text-xs text-slate-700 cursor-pointer">
+                                <input type="checkbox" class="mt-0.5 rounded text-indigo-600">
+                                <span>Melaksanakan pembahagian partition cakera (disk partitioning) dan pemasangan penuh.</span>
+                            </label>
+                            <label class="flex items-start gap-2.5 text-xs text-slate-700 cursor-pointer">
+                                <input type="checkbox" class="mt-0.5 rounded text-indigo-600">
+                                <span>Mengkonfigurasi nama komputer, Virtual Memory, System Protection &amp; perkongsian folder.</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="pt-3 border-t border-slate-100 flex items-center justify-between gap-3">
+                        <span id="status-link-prac1" class="text-[11px] font-medium text-slate-400">Belum ditetapkan</span>
+                        <button onclick="openSubmissionLink('prac1')" class="px-4 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold transition flex items-center gap-1.5 shadow-xs">
+                            <span>Hantar Tugasan / Buka CIDOS</span>
+                            <span>↗</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 3. Technical Report -->
+                <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 flex flex-col justify-between gap-5">
+                    <div>
+                        <div class="flex items-center justify-between gap-2 mb-3">
+                            <span class="px-3 py-1 rounded-lg bg-amber-100 text-amber-800 text-xs font-extrabold">MINGGU 11 (M11)</span>
+                            <span class="text-lg font-extrabold text-amber-600">20%</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-slate-900 mb-1">Technical Report: OS Installation Step-by-Step</h3>
+                        <p class="text-xs font-semibold text-slate-500 mb-3">Pemetaan: CLO3 (A3, PLO9) • Penulisan Laporan Teknikal</p>
+                        <p class="text-sm text-slate-600 mb-4">
+                            Dokumentasi teknikal lengkap langkah demi langkah pemasangan dan konfigurasi sistem pengoperasian berserta tangkapan layar (<em>screenshots</em>).
+                        </p>
+                        <div class="bg-slate-50 rounded-xl p-4 border border-slate-200/70 space-y-2">
+                            <p class="text-xs font-bold text-slate-800 uppercase">Templat Struktur Laporan:</p>
+                            <ul class="text-xs text-slate-700 space-y-1.5 list-disc pl-4">
+                                <li><strong>1.0 Pengenalan &amp; Keperluan Perkakasan:</strong> Spesifikasi minimum RAM, CPU, Storage &amp; jenis edisi OS.</li>
+                                <li><strong>2.0 Langkah Pemasangan VirtualBox &amp; OS:</strong> Susunan bernombor dengan tangkapan layar berlabel.</li>
+                                <li><strong>3.0 Konfigurasi Pasca-Pemasangan:</strong> Tetapan rangkaian, keselamatan (Windows Defender) dan sandaran (Backup).</li>
+                                <li><strong>4.0 Kesimpulan &amp; Refleksi Masalah:</strong> Penyelesaian isu teknikal yang dihadapi semasa pemasangan.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="pt-3 border-t border-slate-100 flex items-center justify-between gap-3">
+                        <span id="status-link-report" class="text-[11px] font-medium text-slate-400">Belum ditetapkan</span>
+                        <button onclick="openSubmissionLink('report')" class="px-4 py-2.5 rounded-xl bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold transition flex items-center gap-1.5 shadow-xs">
+                            <span>Hantar Tugasan / Buka CIDOS</span>
+                            <span>↗</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 4. Practical Task 2 -->
+                <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 flex flex-col justify-between gap-5">
+                    <div>
+                        <div class="flex items-center justify-between gap-2 mb-3">
+                            <span class="px-3 py-1 rounded-lg bg-blue-100 text-blue-800 text-xs font-extrabold">MINGGU 13 (M13)</span>
+                            <span class="text-lg font-extrabold text-blue-600">15%</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-slate-900 mb-1">Practical Task 2: Mobile Device OS Management</h3>
+                        <p class="text-xs font-semibold text-slate-500 mb-3">Pemetaan: CLO1 (P3, PLO3) • Amali Antara Muka Peranti Mudah Alih</p>
+                        <p class="text-sm text-slate-600 mb-4">
+                            Amali pengurusan skrin utama, aplikasi, widget, folder, dan tetapan keselamatan pada sistem pengoperasian Android dan iOS.
+                        </p>
+                        <div class="bg-slate-50 rounded-xl p-4 border border-slate-200/70 space-y-2">
+                            <p class="text-xs font-bold text-slate-800 uppercase">Senarai Semak Tugasan Amali 2:</p>
+                            <label class="flex items-start gap-2.5 text-xs text-slate-700 cursor-pointer">
+                                <input type="checkbox" class="mt-0.5 rounded text-indigo-600">
+                                <span>Mengenal pasti elemen Home Screen, Status Bar &amp; Navigation Bar pada Android / iOS.</span>
+                            </label>
+                            <label class="flex items-start gap-2.5 text-xs text-slate-700 cursor-pointer">
+                                <input type="checkbox" class="mt-0.5 rounded text-indigo-600">
+                                <span>Menambah, menyusun semula aplikasi dan widget merentasi skrin utama.</span>
+                            </label>
+                            <label class="flex items-start gap-2.5 text-xs text-slate-700 cursor-pointer">
+                                <input type="checkbox" class="mt-0.5 rounded text-indigo-600">
+                                <span>Mencipta folder aplikasi, menamakan semula serta menyahpasang (uninstall) aplikasi.</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="pt-3 border-t border-slate-100 flex items-center justify-between gap-3">
+                        <span id="status-link-prac2" class="text-[11px] font-medium text-slate-400">Belum ditetapkan</span>
+                        <button onclick="openSubmissionLink('prac2')" class="px-4 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold transition flex items-center gap-1.5 shadow-xs">
+                            <span>Hantar Tugasan / Buka CIDOS</span>
+                            <span>↗</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Final Assessment Box -->
+            <div class="bg-gradient-to-r from-slate-900 to-indigo-950 text-white rounded-2xl p-6 sm:p-8 shadow-md">
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
+                    <div class="space-y-2 max-w-2xl">
+                        <span class="px-3 py-1 rounded-full bg-white/10 text-indigo-200 text-xs font-bold uppercase tracking-wider">
+                            Penilaian Akhir Semester (FE) • 30%
+                        </span>
+                        <h3 class="text-xl font-bold">Final Examination / Peperiksaan Akhir (SFC21633)</h3>
+                        <p class="text-sm text-slate-300 leading-relaxed">
+                            Merangkumi soalan objektif dan struktur daripada keseluruhan <strong>Bab 1 hingga Bab 5</strong> (Konsep Asas OS, Pengurusan Memori &amp; Proses, Pengurusan Fail &amp; Kebenaran Akses, Sistem Pengoperasian Windows, dan Sistem Pengoperasian Peranti Mudah Alih).
+                        </p>
+                    </div>
+                    <button onclick="switchMainTab('revision')" class="px-5 py-3 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-bold text-sm transition shadow-lg whitespace-nowrap">
+                        Buka Bank Soalan Ulang Kaji (20 MCQ) →
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===================================================================== -->
+        <!-- TAB 5: ULANG KAJI AKHIR (20 SOALAN MCQ KOMPREHENSIF BAB 1 - BAB 5)    -->
+        <!-- ===================================================================== -->
+        <section id="section-revision" class="main-section hidden fade-in space-y-6">
+            <!-- Header & Controls -->
+            <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
+                <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+                    <div>
+                        <div class="flex items-center gap-2 mb-1">
+                            <span class="px-2.5 py-0.5 rounded bg-emerald-100 text-emerald-800 text-xs font-extrabold">PERSEDIAAN FINAL EXAM (30%)</span>
+                            <span class="text-xs font-semibold text-slate-500">Bab 1 hingga Bab 5</span>
+                        </div>
+                        <h2 class="text-xl font-bold text-slate-900">Ulang Kaji Akhir: 20 Soalan Objektif (MCQ) Komprehensif</h2>
+                        <p class="text-sm text-slate-500">Jawab semua soalan di bawah untuk menyemak tahap penguasaan keseluruhan kursus SFC21633.</p>
+                    </div>
+
+                    <div class="flex flex-wrap items-center gap-2.5">
+                        <select id="rev-chapter-filter" onchange="renderRevisionQuestions()" class="px-3.5 py-2.5 text-xs sm:text-sm font-semibold border border-slate-300 rounded-xl bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                            <option value="all">Semua Bab (20 Soalan)</option>
+                            <option value="1">Bab 1: Intro to OS (4 Soalan)</option>
+                            <option value="2">Bab 2: Memory &amp; Process (4 Soalan)</option>
+                            <option value="3">Bab 3: File Management (4 Soalan)</option>
+                            <option value="4">Bab 4: Windows OS (4 Soalan)</option>
+                            <option value="5">Bab 5: Mobile Device OS (4 Soalan)</option>
+                        </select>
+                        <button onclick="resetRevisionQuiz()" class="px-4 py-2.5 text-xs sm:text-sm font-semibold text-rose-600 bg-rose-50 hover:bg-rose-100 border border-rose-200 rounded-xl transition">
+                            Set Semula Kuiz
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Score Summary Bar -->
+                <div id="rev-score-banner" class="mt-5 p-4 rounded-xl bg-slate-900 text-white flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                    <div class="flex items-center gap-3">
+                        <div class="w-11 h-11 rounded-xl bg-indigo-600 flex items-center justify-center font-extrabold text-base" id="rev-score-badge">
+                            0/20
+                        </div>
+                        <div>
+                            <p class="text-xs text-slate-400 uppercase font-semibold">Markah Semasa Ulang Kaji Akhir</p>
+                            <p id="rev-score-status" class="text-sm font-bold text-emerald-300">Belum disemak — Pilih jawapan anda dan tekan butang semak di bawah.</p>
+                        </div>
+                    </div>
+                    <button onclick="gradeRevisionQuiz()" class="px-5 py-2.5 bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-bold text-xs sm:text-sm rounded-xl transition shadow-md whitespace-nowrap">
+                        Semak Semua Jawapan &amp; Lihat Penerangan
+                    </button>
+                </div>
+            </div>
+
+            <!-- Questions Container -->
+            <div id="revision-questions-container" class="space-y-4">
+                <!-- Populated by JavaScript -->
+            </div>
+
+            <!-- Bottom Submit Button -->
+            <div class="flex justify-end">
+                <button onclick="gradeRevisionQuiz()" class="px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-sm rounded-xl transition shadow-md">
+                    Semak Semua Jawapan Ulang Kaji →
+                </button>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-slate-200 mt-12 py-6">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-500">
+            <p>© Kursus <strong>SFC21633 Operating System</strong> • Jabatan Teknologi Maklumat, Kolej Komuniti Sungai Siput.</p>
+            <p>Disediakan untuk kegunaan PdP oleh <strong>Ts. Norshadila Binti Ahmad Badela</strong></p>
+        </div>
+    </footer>
+
+    <!-- ===================================================================== -->
+    <!-- JAVASCRIPT APPLICATION LOGIC                                          -->
+    <!-- ===================================================================== -->
+    <script>
+        // ---------------------------------------------------------------------
+        // 1. DATA RANCANGAN MENGAJAR MINGGUAN (M1 - M14) TANPA TARIKH
+        // ---------------------------------------------------------------------
+        const rmsData = [
+            {
+                week: "M1",
+                chapter: "1.0 & 2.0",
+                title: "1.0 Introduction to Operating Systems & 2.0 Memory and Process Management",
+                subtopics: [
+                    "1.1 OS Environment: Definisi, Fungsi Asas, Struktur (Monolithic, Networked/Distributed), Seni Bina (Single & Multiprocessor), Produk (Open vs Closed Source), Konsep (Multitasking, Multiprogramming, Time Sharing), Komponen (Kernel, Shell, File System), CLI vs GUI.",
+                    "2.1 Memory Management: Fungsi Memory Manager, Hirarki Memori, Fetch & Placement Strategies (First-fit, Best-fit, Worst-fit), Resident/Transient Routines, Swapping, Virtual Memory (Segmentation & Paging).",
+                    "2.2 Process Management: Sumber Sistem, 5 Keadaan Proses, Lifecycle, CPU Scheduler (Short/Mid/Long-term), Algoritma FIFO & Round Robin, Scheduling Duration, Threads & Multithreading."
+                ],
+                pdp: "Kuliah (5 Jam)",
+                assessment: "Aktiviti Formatif Sesi 1 & 2",
+                sessionLink: 1
+            },
+            {
+                week: "M2",
+                chapter: "3.0",
+                title: "3.0 File Management",
+                subtopics: [
+                    "3.1 File Management: Konsep fail, Kaedah Akses (Sequential, Direct, Indexed), Teknik Organisasi Fail mengikut peranti, Struktur Direktori (Storage, Single-level, Two-level), Kaedah Peruntukan Fail (Contiguous, Linked, Indexed) serta kelebihan & kekurangan, Pengurusan Ruang Kosong (Bit Map & Linked List).",
+                    "3.2 File Protection: Jenis operasi kawalan (Read, Write, Execute, Append, Delete, List) dan mekanisme kebenaran (rwx)."
+                ],
+                pdp: "Kuliah (3 Jam) + Pembentangan (2 Jam)",
+                assessment: "Presentation 1 & 2 (20%) • Aktiviti Sesi 3",
+                sessionLink: 3
+            },
+            {
+                week: "M3",
+                chapter: "4.0",
+                title: "4.0 Windows Operating Systems (Pengenalan & Edisi)",
+                subtopics: [
+                    "4.1 Perform installation of Microsoft Windows OS: Jenis edisi Windows (Home, Pro, Education, Enterprise).",
+                    "Perbandingan ciri sistem Windows 32-bit dan 64-bit."
+                ],
+                pdp: "Kuliah (2 Jam) + Amali (3 Jam)",
+                assessment: "Aktiviti Padanan Edisi Windows (Sesi 4)",
+                sessionLink: 4
+            },
+            {
+                week: "M4",
+                chapter: "4.0",
+                title: "4.0 Windows Operating Systems (Kaedah Pemasangan)",
+                subtopics: [
+                    "4.1 Kaedah pemasangan Windows: New Installation (Clean), Upgrade Installation, dan Multiboot Installation.",
+                    "Persediaan persekitaran mesin maya (VirtualBox) untuk pemasangan Windows."
+                ],
+                pdp: "Kuliah (3 Jam) + Amali (2 Jam)",
+                assessment: "Latihan Amali Pemasangan",
+                sessionLink: 4
+            },
+            {
+                week: "M5",
+                chapter: "4.0",
+                title: "4.0 Windows Operating Systems (Amali Pemasangan Penuh)",
+                subtopics: [
+                    "4.1 Sesi amali penuh pemasangan Microsoft Windows OS: Pembahagian partition cakera keras (Disk Partitioning) dan tetapan awal sistem."
+                ],
+                pdp: "Amali Penuh (5 Jam)",
+                assessment: "Semakan Kemajuan Amali",
+                sessionLink: 4
+            },
+            {
+                week: "M6",
+                chapter: "4.0",
+                title: "4.0 Windows Operating Systems (Konfigurasi Sistem - Bhg. 1)",
+                subtopics: [
+                    "4.2 Perform system configuration on Microsoft Windows: Personalization & Themes, Setting up computer's name, Start Menu & Jumplists.",
+                    "System Protection untuk partition & drive, serta mencipta Virtual Memory (Paging file)."
+                ],
+                pdp: "Kuliah (2 Jam) + Amali (3 Jam)",
+                assessment: "Treasure Hunt Tetapan Windows (Sesi 4)",
+                sessionLink: 4
+            },
+            {
+                week: "M7",
+                chapter: "4.0",
+                title: "4.0 Windows Operating Systems (Konfigurasi Sistem - Bhg. 2)",
+                subtopics: [
+                    "4.2 Elemen dalam Control Panel, Pemasangan driver yang hilang (Device Manager), System Information (About).",
+                    "4.2.9 Windows Backup: Backing up files (File History), Create System Image, System Repair Disc, Restoring files & Windows."
+                ],
+                pdp: "Kuliah (3 Jam) + Amali (2 Jam)",
+                assessment: "Latihan VirtualBox Windows 11 ISO",
+                sessionLink: 4
+            },
+            {
+                week: "M8",
+                chapter: "4.0",
+                title: "4.0 Windows Operating Systems (Pengukuhan Amali)",
+                subtopics: [
+                    "4.2 Sesi pengukuhan amali pemasangan dan konfigurasi sistem Windows sebagai persediaan menghadapi Practical Task 1."
+                ],
+                pdp: "Amali Pengukuhan (5 Jam)",
+                assessment: "Pra-Semakan Practical Task 1",
+                sessionLink: 4
+            },
+            {
+                week: "M9",
+                chapter: "4.0",
+                title: "4.0 Windows Operating Systems (Penyelenggaraan & Practical 1)",
+                subtopics: [
+                    "4.3 Perform maintenance on Windows OS: Alat pembersihan & keselamatan (Disk Clean-up, Disk Defragmenter, Windows Defender).",
+                    "4.3.2 Windows Network Configuration: Tetapan Internet (Wi-Fi/Ethernet) & Sharing files, folders and media."
+                ],
+                pdp: "Kuliah (2 Jam) + Amali Penilaian (3 Jam)",
+                assessment: "PRACTICAL TASK 1 (15%)",
+                sessionLink: 4
+            },
+            {
+                week: "M10",
+                chapter: "4.0",
+                title: "4.0 Windows Operating Systems (Penyelenggaraan Lanjutan)",
+                subtopics: [
+                    "4.3 Latihan kajian kes penyelenggaraan sistem Windows, pengoptimuman prestasi cakera (HDD vs SSD) dan keselamatan rangkaian."
+                ],
+                pdp: "Kuliah (2 Jam) + Amali (3 Jam)",
+                assessment: "Kajian Kes Maintenance Tool (Sesi 4)",
+                sessionLink: 4
+            },
+            {
+                week: "M11",
+                chapter: "4.0 & 5.0",
+                title: "4.3 Windows Maintenance & 5.0 Mobile Device Operating Systems",
+                subtopics: [
+                    "5.1 Overview of Mobile OS: Tiga OS mudah alih utama (Microsoft Windows Phone, Apple iOS, Google Android) serta jenis Proprietary vs Open-Source.",
+                    "5.2 Overview of Android Touch Interface: Home Screen items, pengurusan Apps, Widgets dan Folders."
+                ],
+                pdp: "Kuliah (3 Jam) + Amali (2 Jam)",
+                assessment: "TECHNICAL REPORT (20%) • Aktiviti Sesi 5",
+                sessionLink: 5
+            },
+            {
+                week: "M12",
+                chapter: "5.0",
+                title: "5.0 Mobile Device Operating Systems (Android & iOS Interface)",
+                subtopics: [
+                    "5.2 Android: Place/move apps & widgets, create/remove folders, uninstall apps.",
+                    "5.3 Overview of iOS Touch Interface: Home Screen items, App Library, pengurusan Apps, Folders dan uninstall apps pada iOS."
+                ],
+                pdp: "Kuliah (1 Jam) + Amali (4 Jam)",
+                assessment: "Perbandingan Android vs iOS (Sesi 5)",
+                sessionLink: 5
+            },
+            {
+                week: "M13",
+                chapter: "5.0",
+                title: "5.0 Mobile Device Operating Systems (Practical Task 2)",
+                subtopics: [
+                    "5.3 Pelaksanaan tugasan amali pengurusan antara muka dan aplikasi peranti mudah alih (Android / iOS)."
+                ],
+                pdp: "Amali Penilaian (5 Jam)",
+                assessment: "PRACTICAL TASK 2 (15%)",
+                sessionLink: 5
+            },
+            {
+                week: "M14",
+                chapter: "1.0 – 5.0",
+                title: "Rumusan Topik 5.0 & Ulang Kaji Peperiksaan Akhir",
+                subtopics: [
+                    "Melengkapkan subtopik 5.3 dan sesi ulang kaji menyeluruh merangkumi Bab 1.0 hingga Bab 5.0 sebagai persediaan Peperiksaan Akhir."
+                ],
+                pdp: "Amali & Ulang Kaji (5 Jam)",
+                assessment: "Persediaan Final Assessment (30%)",
+                sessionLink: 1
+            }
+        ];
+
+        function renderRMS(dataList) {
+            const tbody = document.getElementById('rms-table-body');
+            if (dataList.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="4" class="px-4 py-8 text-center text-slate-500">Tiada rekod minggu yang sepadan dengan carian anda.</td></tr>`;
+                return;
+            }
+            tbody.innerHTML = dataList.map(item => {
+                const isSumatif = item.assessment.includes('PRACTICAL') || item.assessment.includes('Presentation') || item.assessment.includes('TECHNICAL REPORT');
+                return `
+                <tr class="hover:bg-slate-50/90 transition-colors">
+                    <td class="px-4 py-4 align-top">
+                        <span class="inline-flex items-center justify-center px-2.5 py-1 rounded-lg bg-indigo-950 text-white font-bold text-xs">
+                            ${item.week}
+                        </span>
+                        <span class="block text-[11px] font-semibold text-slate-400 mt-1">Bab ${item.chapter}</span>
+                    </td>
+                    <td class="px-4 py-4 align-top">
+                        <p class="font-bold text-slate-900 mb-1.5">${item.title}</p>
+                        <ul class="space-y-1 text-xs text-slate-600 list-disc pl-4">
+                            ${item.subtopics.map(sub => `<li>${sub}</li>`).join('')}
+                        </ul>
+                    </td>
+                    <td class="px-4 py-4 align-top">
+                        <span class="inline-block px-2.5 py-1 rounded-md bg-slate-100 text-slate-700 font-medium text-xs">
+                            ${item.pdp}
+                        </span>
+                    </td>
+                    <td class="px-4 py-4 align-top space-y-2">
+                        <span class="inline-block px-2.5 py-1 rounded-md text-xs font-bold ${isSumatif ? 'bg-amber-100 text-amber-800 border border-amber-300' : 'bg-emerald-50 text-emerald-700 border border-emerald-200'}">
+                            ${item.assessment}
+                        </span>
+                        <div>
+                            <button onclick="goToSession(${item.sessionLink})" class="text-xs font-semibold text-indigo-600 hover:text-indigo-800 underline">
+                                Buka Latihan Sesi ${item.sessionLink} →
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+                `;
+            }).join('');
+        }
+
+        function filterRMS() {
+            const query = document.getElementById('rms-search').value.toLowerCase();
+            const chap = document.getElementById('rms-chapter-filter').value;
+            const filtered = rmsData.filter(item => {
+                const matchChap = chap === 'all' || item.chapter.includes(chap);
+                const matchText = item.title.toLowerCase().includes(query) ||
+                                  item.week.toLowerCase().includes(query) ||
+                                  item.subtopics.some(s => s.toLowerCase().includes(query));
+                return matchChap && matchText;
+            });
+            renderRMS(filtered);
+        }
+
+        // ---------------------------------------------------------------------
+        // 2. DATA NOTA KULIAH INTERAKTIF (BAB 1 - BAB 5)
+        // ---------------------------------------------------------------------
+        const notesContent = {
+            1: `
+                <div class="space-y-6 fade-in">
+                    <div class="border-b border-slate-200 pb-4 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                        <div>
+                            <span class="text-xs font-bold uppercase tracking-wider text-indigo-600">Chapter 1 • CLO 2 (A2, PLO4)</span>
+                            <h2 class="text-2xl font-extrabold text-slate-900">Introduction to Operating Systems</h2>
+                        </div>
+                        <button onclick="goToSession(1)" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold rounded-xl transition">
+                            Uji Kefahaman Bab 1 →
+                        </button>
+                    </div>
+
+                    <!-- Definisi & Persekitaran OS -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="bg-slate-50 p-5 rounded-2xl border border-slate-200/80">
+                            <h3 class="font-bold text-slate-900 text-base mb-2">1.1.1 Definisi &amp; Fungsi Asas OS</h3>
+                            <p class="text-sm text-slate-700 mb-3">
+                                <strong>Operating System (OS)</strong> ialah perisian sistem utama (<em>system software</em>) yang mengawal perkakasan komputer dan membolehkan pengguna menjalankan aplikasi.
+                            </p>
+                            <ul class="text-xs text-slate-600 space-y-1.5 list-disc pl-4">
+                                <li><strong>Process Management:</strong> Mengurus pelaksanaan program.</li>
+                                <li><strong>Memory Management:</strong> Mengawal penggunaan ruang RAM.</li>
+                                <li><strong>File Management:</strong> Menyusun fail dan folder dalam storan.</li>
+                                <li><strong>Device Control:</strong> Mengawal perkakasan input/output.</li>
+                                <li><strong>Security:</strong> Menyediakan kawalan log masuk &amp; kata laluan.</li>
+                            </ul>
+                        </div>
+
+                        <div class="bg-indigo-50/70 p-5 rounded-2xl border border-indigo-100">
+                            <h3 class="font-bold text-indigo-950 text-base mb-2">Aliran Persekitaran OS (OS Environment)</h3>
+                            <p class="text-xs text-slate-600 mb-4">OS bertindak sebagai perantara antara pengguna/aplikasi dengan perkakasan komputer:</p>
+                            <div class="flex flex-col sm:flex-row items-center justify-between gap-2 text-center">
+                                <div class="w-full sm:w-auto flex-1 bg-white p-2.5 rounded-xl border border-indigo-200 shadow-xs">
+                                    <span class="text-lg block">👤</span>
+                                    <span class="text-xs font-bold text-slate-800">1. User</span>
+                                    <span class="text-[10px] text-slate-500 block">Pengguna</span>
+                                </div>
+                                <span class="text-indigo-500 font-bold rotate-90 sm:rotate-0">→</span>
+                                <div class="w-full sm:w-auto flex-1 bg-white p-2.5 rounded-xl border border-indigo-200 shadow-xs">
+                                    <span class="text-lg block">🌐</span>
+                                    <span class="text-xs font-bold text-slate-800">2. Application</span>
+                                    <span class="text-[10px] text-slate-500 block">cth: Chrome</span>
+                                </div>
+                                <span class="text-indigo-500 font-bold rotate-90 sm:rotate-0">→</span>
+                                <div class="w-full sm:w-auto flex-1 bg-indigo-600 text-white p-2.5 rounded-xl shadow-xs">
+                                    <span class="text-lg block">⚙️</span>
+                                    <span class="text-xs font-bold">3. OS</span>
+                                    <span class="text-[10px] text-indigo-200 block">cth: Windows</span>
+                                </div>
+                                <span class="text-indigo-500 font-bold rotate-90 sm:rotate-0">→</span>
+                                <div class="w-full sm:w-auto flex-1 bg-white p-2.5 rounded-xl border border-indigo-200 shadow-xs">
+                                    <span class="text-lg block">💻</span>
+                                    <span class="text-xs font-bold text-slate-800">4. Hardware</span>
+                                    <span class="text-[10px] text-slate-500 block">CPU, RAM, Skrin</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Struktur, Seni Bina & Produk -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div class="p-4 rounded-xl border border-slate-200 bg-white">
+                            <span class="text-xs font-bold text-indigo-600">1.1.3 Struktur OS</span>
+                            <h4 class="font-bold text-slate-900 mt-1 mb-2">Monolithic vs Distributed</h4>
+                            <p class="text-xs text-slate-600 mb-2"><strong>Monolithic:</strong> Semua fungsi dalam satu program besar, pantas tetapi sukar diubah suai (cth: UNIX tradisional).</p>
+                            <p class="text-xs text-slate-600"><strong>Networked / Distributed:</strong> Banyak komputer bersambung berkongsi data &amp; sumber (cth: Makmal komputer, Cloud).</p>
+                        </div>
+                        <div class="p-4 rounded-xl border border-slate-200 bg-white">
+                            <span class="text-xs font-bold text-indigo-600">1.1.4 Seni Bina OS</span>
+                            <h4 class="font-bold text-slate-900 mt-1 mb-2">Single vs Multiprocessor</h4>
+                            <p class="text-xs text-slate-600 mb-2"><strong>Single Processor:</strong> Satu CPU mengendalikan satu tugas pada satu masa (multitasking secara logik).</p>
+                            <p class="text-xs text-slate-600"><strong>Multiprocessor:</strong> Dua atau lebih CPU bekerja serentak untuk prestasi pantas (cth: Server, PC moden).</p>
+                        </div>
+                        <div class="p-4 rounded-xl border border-slate-200 bg-white">
+                            <span class="text-xs font-bold text-indigo-600">1.1.5 Produk OS</span>
+                            <h4 class="font-bold text-slate-900 mt-1 mb-2">Closed vs Open Source</h4>
+                            <p class="text-xs text-slate-600 mb-2"><strong>Closed Source:</strong> Kod sumber disembunyikan &amp; dimiliki syarikat (cth: Microsoft Windows).</p>
+                            <p class="text-xs text-slate-600"><strong>Open Source:</strong> Kod sumber terbuka, percuma diubah suai oleh komuniti (cth: Linux).</p>
+                        </div>
+                    </div>
+
+                    <!-- Konsep, Komponen & Antara Muka -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="p-5 rounded-2xl border border-slate-200 bg-slate-50">
+                            <h3 class="font-bold text-slate-900 text-base mb-3">1.1.6 Konsep &amp; 1.1.7 Komponen Utama OS</h3>
+                            <div class="space-y-2 text-xs text-slate-700">
+                                <p><span class="font-bold text-indigo-700">• Multitasking:</span> Menjalankan pelbagai tugasan serentak (cth: dengar muzik sambil menaip).</p>
+                                <p><span class="font-bold text-indigo-700">• Multiprogramming:</span> Beberapa program dimuatkan dalam memori; CPU bertukar antara program untuk memaksimumkan penggunaan CPU.</p>
+                                <p><span class="font-bold text-indigo-700">• Time Sharing:</span> Masa CPU dibahagikan secara adil dalam hirisan masa kecil (<em>time slice</em>) kepada ramai pengguna.</p>
+                                <hr class="my-2 border-slate-200">
+                                <p><span class="font-bold text-emerald-700">• Kernel:</span> Teras atau "otak" OS yang mengawal CPU, memori dan perkakasan di latar belakang.</p>
+                                <p><span class="font-bold text-emerald-700">• Shell:</span> Antara muka yang menerima arahan daripada pengguna untuk dihantar kepada Kernel (cth: Terminal, CMD).</p>
+                                <p><span class="font-bold text-emerald-700">• File System:</span> Menyusun fail dan folder untuk simpanan dan capaian data.</p>
+                            </div>
+                        </div>
+
+                        <div class="p-5 rounded-2xl border border-slate-200 bg-white">
+                            <h3 class="font-bold text-slate-900 text-base mb-3">1.1.8 Perbandingan Antara Muka: CLI vs GUI</h3>
+                            <div class="overflow-x-auto">
+                                <table class="w-full text-xs text-left border border-slate-200 rounded-lg overflow-hidden">
+                                    <thead class="bg-slate-800 text-white">
+                                        <tr>
+                                            <th class="p-2.5">Ciri</th>
+                                            <th class="p-2.5">CLI (Command Line Interface)</th>
+                                            <th class="p-2.5">GUI (Graphical User Interface)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="divide-y divide-slate-200">
+                                        <tr>
+                                            <td class="p-2.5 font-semibold">Interaksi</td>
+                                            <td class="p-2.5">Arahan berasaskan teks (<code>dir</code>, <code>cd</code>, <code>ls</code>)</td>
+                                            <td class="p-2.5">Ikon, tetingkap (windows) &amp; butang</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="p-2.5 font-semibold">Kemudahan</td>
+                                            <td class="p-2.5">Sukar bagi pengguna baharu</td>
+                                            <td class="p-2.5">Mesra pengguna &amp; mudah dipelajari</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="p-2.5 font-semibold">Kelajuan &amp; Kuasa</td>
+                                            <td class="p-2.5">Sangat pantas &amp; berkuasa untuk pentadbir</td>
+                                            <td class="p-2.5">Memerlukan lebih sumber grafik/RAM</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `,
+            2: `
+                <div class="space-y-6 fade-in">
+                    <div class="border-b border-slate-200 pb-4 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                        <div>
+                            <span class="text-xs font-bold uppercase tracking-wider text-indigo-600">Chapter 2 • CLO 2 (A2, PLO4)</span>
+                            <h2 class="text-2xl font-extrabold text-slate-900">Memory and Process Management</h2>
+                        </div>
+                        <button onclick="goToSession(2)" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold rounded-xl transition">
+                            Uji Kefahaman Bab 2 →
+                        </button>
+                    </div>
+
+                    <!-- Part 1: Memory Management -->
+                    <div class="bg-slate-50 p-5 rounded-2xl border border-slate-200 space-y-4">
+                        <h3 class="text-lg font-bold text-indigo-950">Bahagian 1: Memory Management (2.1)</h3>
+                        <p class="text-sm text-slate-700">
+                            <strong>Memory Manager</strong> menjejaki ruang memori (RAM) yang digunakan dan kosong, memperuntukkan memori kepada program, membebaskannya selepas tamat, serta mengelakkan pertindihan memori.
+                        </p>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="bg-white p-4 rounded-xl border border-slate-200">
+                                <h4 class="font-bold text-sm text-slate-900 mb-2">2.1.2 Hirarki Memori (Paling Pantas → Perlahan)</h4>
+                                <ol class="text-xs text-slate-700 space-y-1.5 list-decimal pl-4">
+                                    <li><strong>Register (CPU Register):</strong> Sangat pantas, kos sangat tinggi.</li>
+                                    <li><strong>Cache (L1/L2 Cache):</strong> Pantas, kos tinggi.</li>
+                                    <li><strong>Main Memory (RAM):</strong> Kelajuan sederhana, kos sederhana.</li>
+                                    <li><strong>Secondary Storage (SSD / HDD):</strong> Perlahan, kos rendah, kapasiti besar.</li>
+                                </ol>
+                            </div>
+                            <div class="bg-white p-4 rounded-xl border border-slate-200">
+                                <h4 class="font-bold text-sm text-slate-900 mb-2">2.1.3 Strategi Penempatan Memori (Placement)</h4>
+                                <ul class="text-xs text-slate-700 space-y-1.5 list-disc pl-4">
+                                    <li><strong>First-Fit:</strong> Memilih blok kosong pertama yang cukup besar. Pantas tetapi mungkin membazir ruang.</li>
+                                    <li><strong>Best-Fit:</strong> Memilih blok kosong paling kecil yang muat dengan program. Mengurangkan pembaziran ruang tetapi carian lebih lambat.</li>
+                                    <li><strong>Worst-Fit:</strong> Memilih blok kosong paling besar untuk meninggalkan baki ruang yang besar.</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
+                            <div class="bg-white p-3.5 rounded-xl border border-slate-200">
+                                <strong class="text-indigo-700 block mb-1">Resident vs Transient (2.1.4)</strong>
+                                <p class="text-slate-600"><em>Resident:</em> Sentiasa kekal dalam RAM (cth: Kernel). <em>Transient:</em> Dimuatkan hanya apabila diperlukan dan dibuang selepas guna.</p>
+                            </div>
+                            <div class="bg-white p-3.5 rounded-xl border border-slate-200">
+                                <strong class="text-indigo-700 block mb-1">Memory Swapping (2.1.5)</strong>
+                                <p class="text-slate-600">Memindahkan proses antara RAM dan cakera (disk) apabila RAM penuh supaya banyak program dapat dijalankan.</p>
+                            </div>
+                            <div class="bg-white p-3.5 rounded-xl border border-slate-200">
+                                <strong class="text-indigo-700 block mb-1">Virtual Memory (2.1.6)</strong>
+                                <p class="text-slate-600">Menggunakan ruang disk sebagai RAM tambahan melalui teknik <strong>Segmentation</strong> (bahagian logik) dan <strong>Paging</strong> (saiz halaman tetap).</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Part 2: Process Management -->
+                    <div class="bg-white p-5 rounded-2xl border border-slate-200 space-y-4">
+                        <h3 class="text-lg font-bold text-indigo-950">Bahagian 2: Process Management (2.2)</h3>
+                        <p class="text-sm text-slate-700">
+                            <strong>Process</strong> ialah program yang sedang dilaksanakan (<em>program in execution</em>). OS mengurus sumber utama seperti masa CPU, memori, dan ruang cakera keras.
+                        </p>
+
+                        <!-- Visual Process States -->
+                        <div class="bg-indigo-50/70 p-4 rounded-xl border border-indigo-100">
+                            <h4 class="text-xs font-bold uppercase text-indigo-900 mb-3">2.2.2 Lima Keadaan Proses (5 Process States)</h4>
+                            <div class="flex flex-wrap items-center justify-center gap-2 text-xs font-bold">
+                                <span class="px-3 py-2 rounded-lg bg-slate-200 text-slate-800">1. New (Dicipta)</span>
+                                <span>→</span>
+                                <span class="px-3 py-2 rounded-lg bg-amber-100 text-amber-900 border border-amber-300">2. Ready (Sedia)</span>
+                                <span>⇄</span>
+                                <span class="px-3 py-2 rounded-lg bg-emerald-600 text-white shadow-xs">3. Running (Dilaksana CPU)</span>
+                                <span>→</span>
+                                <span class="px-3 py-2 rounded-lg bg-rose-100 text-rose-900 border border-rose-200">4. Waiting (Menunggu I/O)</span>
+                                <span>→</span>
+                                <span class="px-3 py-2 rounded-lg bg-slate-800 text-white">5. Terminated (Tamat)</span>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+                            <div class="p-4 rounded-xl bg-slate-50 border border-slate-200">
+                                <h4 class="font-bold text-slate-900 text-sm mb-2">2.2.6 Jenis CPU Scheduler &amp; Interrupts</h4>
+                                <ul class="space-y-1.5 text-slate-700 list-disc pl-4">
+                                    <li><strong>Short-term Scheduler:</strong> Memilih proses daripada keadaan <em>Ready</em> ke <em>Running</em>.</li>
+                                    <li><strong>Mid-term Scheduler:</strong> Menggantung sementara (<em>suspend/swap out</em>) atau menyambung semula proses.</li>
+                                    <li><strong>Long-term Scheduler:</strong> Mengawal bilangan proses yang dimuatkan ke dalam memori.</li>
+                                    <li><strong>Interrupts (2.2.5):</strong> Isyarat kepada CPU (Hardware/Software interrupt) untuk menghentikan sementara proses semasa bagi mengendalikan tugas segera.</li>
+                                </ul>
+                            </div>
+                            <div class="p-4 rounded-xl bg-slate-50 border border-slate-200">
+                                <h4 class="font-bold text-slate-900 text-sm mb-2">2.2.7 Algoritma Penjadualan &amp; Threads</h4>
+                                <ul class="space-y-1.5 text-slate-700 list-disc pl-4">
+                                    <li><strong>FIFO (First In First Out):</strong> Proses yang tiba dahulu dijalankan dahulu. Ringkas tetapi boleh menyebabkan masa menunggu lama.</li>
+                                    <li><strong>Round Robin:</strong> Setiap proses diberi hirisan masa tetap (<em>time slice</em>). Adil untuk sistem perkongsian masa.</li>
+                                    <li><strong>Scheduling Duration:</strong> Diukur melalui <em>Turnaround time</em>, <em>Waiting time</em>, dan <em>Response time</em>.</li>
+                                    <li><strong>Thread (2.2.9):</strong> Unit pelaksanaan terkecil di dalam sesuatu proses. <em>Multithreading</em> meningkatkan kelajuan &amp; responsif aplikasi.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `,
+            3: `
+                <div class="space-y-6 fade-in">
+                    <div class="border-b border-slate-200 pb-4 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                        <div>
+                            <span class="text-xs font-bold uppercase tracking-wider text-indigo-600">Chapter 3 • CLO 2 (A2, PLO4)</span>
+                            <h2 class="text-2xl font-extrabold text-slate-900">File Management</h2>
+                        </div>
+                        <button onclick="goToSession(3)" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold rounded-xl transition">
+                            Main Permission Game (Bab 3) →
+                        </button>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div class="p-4 rounded-xl bg-slate-50 border border-slate-200">
+                            <span class="text-xs font-bold text-indigo-600">3.1.2 Kaedah Akses Fail</span>
+                            <h3 class="font-bold text-slate-900 text-sm mt-1 mb-2">Sequential, Direct &amp; Indexed</h3>
+                            <ul class="text-xs text-slate-700 space-y-1.5 list-disc pl-4">
+                                <li><strong>Sequential Access:</strong> Data dibaca mengikut urutan dari awal (cth: fail teks, log, pita magnetik).</li>
+                                <li><strong>Direct (Random) Access:</strong> Capaian terus ke blok data tanpa membaca dari awal (cth: cakera keras, fail video).</li>
+                                <li><strong>Indexed Access:</strong> Menggunakan jadual indeks yang menunjuk ke blok data (cth: pangkalan data / database).</li>
+                            </ul>
+                        </div>
+
+                        <div class="p-4 rounded-xl bg-slate-50 border border-slate-200">
+                            <span class="text-xs font-bold text-indigo-600">3.1.4 Struktur Direktori</span>
+                            <h3 class="font-bold text-slate-900 text-sm mt-1 mb-2">Single-Level vs Two-Level</h3>
+                            <ul class="text-xs text-slate-700 space-y-1.5 list-disc pl-4">
+                                <li><strong>Single-Level Directory:</strong> Semua fail berada dalam satu direktori utama (Root). Mudah berlaku konflik nama fail.</li>
+                                <li><strong>Two-Level Directory:</strong> Direktori berasingan bagi setiap pengguna (cth: <code>/user1</code>, <code>/user2</code>). Mengurangkan konflik nama fail.</li>
+                            </ul>
+                        </div>
+
+                        <div class="p-4 rounded-xl bg-slate-50 border border-slate-200">
+                            <span class="text-xs font-bold text-indigo-600">3.1.7 Free Space Management</span>
+                            <h3 class="font-bold text-slate-900 text-sm mt-1 mb-2">Bit Map &amp; Linked List</h3>
+                            <ul class="text-xs text-slate-700 space-y-1.5 list-disc pl-4">
+                                <li><strong>Bit Map / Bit Vector:</strong> Setiap blok diwakili 1 bit (1 = kosong, 0 = diperuntukkan).</li>
+                                <li><strong>Linked List:</strong> Semua blok kosong dipautkan bersama menggunakan penunjuk (<em>pointer</em>).</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Jadual File Allocation -->
+                    <div class="bg-white rounded-2xl border border-slate-200 p-5">
+                        <h3 class="font-bold text-slate-900 text-base mb-3">3.1.5 &amp; 3.1.6 Kaedah Peruntukan Fail (File Allocation Methods)</h3>
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-xs text-left border border-slate-200">
+                                <thead class="bg-slate-800 text-white">
+                                    <tr>
+                                        <th class="p-2.5">Kaedah</th>
+                                        <th class="p-2.5">Cara Pelaksanaan</th>
+                                        <th class="p-2.5">Kelebihan</th>
+                                        <th class="p-2.5">Kekurangan</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-slate-200">
+                                    <tr>
+                                        <td class="p-2.5 font-bold text-indigo-700">Contiguous</td>
+                                        <td class="p-2.5">Fail disimpan dalam blok yang bersebelahan secara berterusan.</td>
+                                        <td class="p-2.5 text-emerald-700 font-medium">Capaian sangat pantas</td>
+                                        <td class="p-2.5 text-rose-700">External fragmentation &amp; sukar besarkan saiz fail</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="p-2.5 font-bold text-indigo-700">Linked</td>
+                                        <td class="p-2.5">Blok fail dipautkan bersama menggunakan pointer di setiap blok.</td>
+                                        <td class="p-2.5 text-emerald-700 font-medium">Tiada fragmentation &amp; fleksibel</td>
+                                        <td class="p-2.5 text-rose-700">Capaian rawak lambat &amp; overhead pointer</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="p-2.5 font-bold text-indigo-700">Indexed</td>
+                                        <td class="p-2.5">Satu blok indeks khas menyimpan semua alamat blok data fail.</td>
+                                        <td class="p-2.5 text-emerald-700 font-medium">Capaian rawak cekap &amp; pantas</td>
+                                        <td class="p-2.5 text-rose-700">Memerlukan ruang storan tambahan untuk blok indeks</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- File Protection & Permissions -->
+                    <div class="bg-indigo-50/70 rounded-2xl border border-indigo-100 p-5">
+                        <h3 class="font-bold text-indigo-950 text-base mb-2">3.2 Perlindungan Fail &amp; Kod Kebenaran (File Permissions)</h3>
+                        <p class="text-xs text-slate-700 mb-3">
+                            Kebenaran fail dibahagikan kepada 3 kumpulan pengguna iaitu <strong>Owner (Pemilik)</strong>, <strong>Group (Kumpulan)</strong>, dan <strong>Others (Pengguna Lain)</strong> dengan 3 jenis hak akses: <code>r</code> (Read), <code>w</code> (Write), dan <code>x</code> (Execute).
+                        </p>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-center text-xs">
+                            <div class="bg-white p-3 rounded-xl border border-indigo-200">
+                                <span class="font-mono font-extrabold text-base text-indigo-700">rwx</span>
+                                <span class="block font-bold text-slate-800 mt-1">Owner (3 aksara pertama)</span>
+                                <span class="text-slate-500">Boleh Baca, Tulis &amp; Laksana</span>
+                            </div>
+                            <div class="bg-white p-3 rounded-xl border border-indigo-200">
+                                <span class="font-mono font-extrabold text-base text-emerald-700">r-x</span>
+                                <span class="block font-bold text-slate-800 mt-1">Group (3 aksara tengah)</span>
+                                <span class="text-slate-500">Boleh Baca &amp; Laksana sahaja</span>
+                            </div>
+                            <div class="bg-white p-3 rounded-xl border border-indigo-200">
+                                <span class="font-mono font-extrabold text-base text-amber-700">r--</span>
+                                <span class="block font-bold text-slate-800 mt-1">Others (3 aksara akhir)</span>
+                                <span class="text-slate-500">Boleh Baca sahaja</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `,
+            4: `
+                <div class="space-y-6 fade-in">
+                    <div class="border-b border-slate-200 pb-4 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                        <div>
+                            <span class="text-xs font-bold uppercase tracking-wider text-indigo-600">Chapter 4 • CLO 1 (P3, PLO3) &amp; CLO 3 (A3, PLO9)</span>
+                            <h2 class="text-2xl font-extrabold text-slate-900">Windows Operating Systems</h2>
+                        </div>
+                        <button onclick="goToSession(4)" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold rounded-xl transition">
+                            Uji Kefahaman Bab 4 →
+                        </button>
+                    </div>
+
+                    <!-- 4.1 Installation -->
+                    <div class="bg-slate-50 p-5 rounded-2xl border border-slate-200 space-y-4">
+                        <h3 class="text-lg font-bold text-slate-900">4.1 Pemasangan Microsoft Windows OS</h3>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 text-xs">
+                            <div class="bg-white p-3.5 rounded-xl border border-slate-200">
+                                <span class="font-bold text-blue-600 block">Windows Home</span>
+                                <p class="text-slate-600 mt-1">Pengguna rumah &amp; pelajar. Ciri asas seperti Windows Security &amp; Microsoft Store.</p>
+                            </div>
+                            <div class="bg-white p-3.5 rounded-xl border border-slate-200">
+                                <span class="font-bold text-indigo-600 block">Windows Pro</span>
+                                <p class="text-slate-600 mt-1">Perniagaan kecil &amp; pejabat. Menyokong BitLocker, Remote Desktop, Domain Join &amp; Group Policy.</p>
+                            </div>
+                            <div class="bg-white p-3.5 rounded-xl border border-slate-200">
+                                <span class="font-bold text-emerald-600 block">Windows Education</span>
+                                <p class="text-slate-600 mt-1">Institusi pendidikan (kolej/universiti). Ciri keselamatan lanjutan seakan Enterprise.</p>
+                            </div>
+                            <div class="bg-white p-3.5 rounded-xl border border-slate-200">
+                                <span class="font-bold text-slate-800 block">Windows Enterprise</span>
+                                <p class="text-slate-600 mt-1">Organisasi besar &amp; bank. Tahap keselamatan tertinggi &amp; pengurusan berpusat.</p>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+                            <div class="bg-white p-4 rounded-xl border border-slate-200">
+                                <h4 class="font-bold text-slate-900 mb-1.5">32-bit vs 64-bit &amp; Kaedah Pemasangan</h4>
+                                <p class="text-slate-700 mb-2"><strong>32-bit:</strong> Menyokong maksimum 4 GB RAM. <strong>64-bit:</strong> Menyokong lebih 4 GB RAM, pemprosesan pantas &amp; wajib untuk Windows 11.</p>
+                                <p class="text-slate-700"><strong>Kaedah Pemasangan:</strong> (a) <em>New/Clean</em> (format disk &amp; pasang baharu), (b) <em>Upgrade</em> (kekal fail &amp; aplikasi, cth: Win 10 ke Win 11), (c) <em>Multiboot</em> (lebih daripada satu OS dalam satu PC).</p>
+                            </div>
+                            <div class="bg-white p-4 rounded-xl border border-slate-200">
+                                <h4 class="font-bold text-slate-900 mb-1.5">Langkah Pemasangan dalam VirtualBox</h4>
+                                <ol class="list-decimal pl-4 space-y-1 text-slate-700">
+                                    <li>Muat turun dan pasang perisian Oracle VirtualBox beserta Extension Pack.</li>
+                                    <li>Cipta Virtual Machine (VM) baharu dan tetapkan saiz RAM serta storan maya.</li>
+                                    <li>Lampirkan (<em>attach</em>) fail imej ISO Windows 11.</li>
+                                    <li>Mulakan VM dan ikuti proses pemasangan hingga selesai.</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 4.2 Configuration & 4.3 Maintenance -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs">
+                        <div class="p-5 rounded-2xl border border-slate-200 bg-white space-y-2.5">
+                            <h3 class="text-base font-bold text-slate-900">4.2 Konfigurasi Sistem &amp; Pintasan Kekunci</h3>
+                            <ul class="space-y-1.5 text-slate-700 list-disc pl-4">
+                                <li><strong>Pintasan Pantas:</strong> File Explorer (<code>Windows + E</code>), Widgets (<code>Windows + W</code>), Snap Layouts (<code>Windows + Z</code>).</li>
+                                <li><strong>Nama Komputer &amp; Spesifikasi:</strong> <code>Settings → System → About → Rename this PC</code>.</li>
+                                <li><strong>System Protection:</strong> Mencipta <em>Restore Point</em> untuk memulihkan fail sistem jika berlaku ralat.</li>
+                                <li><strong>Virtual Memory:</strong> <code>Advanced System Settings → Performance → Virtual Memory</code> (menambah kapasiti RAM menggunakan cakera).</li>
+                                <li><strong>Windows Backup:</strong> <em>File History</em> (sandaran fail ke pemacu luar), <em>System Image</em> (sandaran penuh OS &amp; program), <em>System Repair Disc</em> (membaiki masalah boot).</li>
+                            </ul>
+                        </div>
+
+                        <div class="p-5 rounded-2xl border border-slate-200 bg-white space-y-2.5">
+                            <h3 class="text-base font-bold text-slate-900">4.3 Penyelenggaraan &amp; Utiliti Windows</h3>
+                            <ul class="space-y-1.5 text-slate-700 list-disc pl-4">
+                                <li><strong>Disk Cleanup:</strong> Membuang fail sementara (<em>temporary files</em>) dan mengosongkan Recycle Bin untuk menjimatkan ruang storan.</li>
+                                <li><strong>Disk Defragmenter:</strong> Menyusun semula serpihan data pada cakera keras (<strong>HDD</strong>) supaya capaian lebih pantas (tidak diperlukan untuk SSD).</li>
+                                <li><strong>Microsoft Defender &amp; Windows Security:</strong> Perlindungan masa nyata daripada virus, perisian hasad, firewall dan <em>Phishing Protection</em>.</li>
+                                <li><strong>Windows Update:</strong> Menampal kelemahan keselamatan (<em>vulnerabilities</em>) dan mengemas kini pemacu peranti (<em>drivers</em>).</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            `,
+            5: `
+                <div class="space-y-6 fade-in">
+                    <div class="border-b border-slate-200 pb-4 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                        <div>
+                            <span class="text-xs font-bold uppercase tracking-wider text-indigo-600">Chapter 5 • CLO 1 (P3, PLO3)</span>
+                            <h2 class="text-2xl font-extrabold text-slate-900">Mobile Device Operating Systems</h2>
+                        </div>
+                        <button onclick="goToSession(5)" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold rounded-xl transition">
+                            Uji Kefahaman Bab 5 →
+                        </button>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+                        <div class="p-4 rounded-xl border border-slate-200 bg-slate-50">
+                            <span class="px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 font-bold">Open-Source OS</span>
+                            <h3 class="font-bold text-slate-900 text-base mt-2 mb-1">Google Android</h3>
+                            <p class="text-slate-600">Dibangunkan oleh Google berasaskan sumber terbuka. Digunakan oleh pelbagai pengeluar seperti Samsung, Xiaomi, Oppo, Vivo dan Google Pixel.</p>
+                        </div>
+                        <div class="p-4 rounded-xl border border-slate-200 bg-slate-50">
+                            <span class="px-2 py-0.5 rounded bg-indigo-100 text-indigo-800 font-bold">Proprietary (Closed) OS</span>
+                            <h3 class="font-bold text-slate-900 text-base mt-2 mb-1">Apple iOS</h3>
+                            <p class="text-slate-600">Dibangunkan secara eksklusif oleh Apple Inc. untuk peranti iPhone dan iPad (iPadOS). Terkenal dengan kestabilan dan keselamatan tinggi.</p>
+                        </div>
+                        <div class="p-4 rounded-xl border border-slate-200 bg-slate-50">
+                            <span class="px-2 py-0.5 rounded bg-slate-200 text-slate-700 font-bold">Discontinued OS</span>
+                            <h3 class="font-bold text-slate-900 text-base mt-2 mb-1">Microsoft Windows Phone</h3>
+                            <p class="text-slate-600">Menggunakan antara muka berasaskan jubin (<em>Live Tiles</em>) pada peranti Nokia/Microsoft Lumia. Pembangunan telah ditamatkan.</p>
+                        </div>
+                    </div>
+
+                    <!-- Perbandingan Android vs iOS -->
+                    <div class="bg-white rounded-2xl border border-slate-200 p-5">
+                        <h3 class="font-bold text-slate-900 text-base mb-3">Perbandingan Utama: Android vs iOS</h3>
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-xs text-left border border-slate-200">
+                                <thead class="bg-slate-800 text-white">
+                                    <tr>
+                                        <th class="p-2.5">Aspek</th>
+                                        <th class="p-2.5">Android</th>
+                                        <th class="p-2.5">Apple iOS</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-slate-200">
+                                    <tr>
+                                        <td class="p-2.5 font-semibold">Sumber Kod</td>
+                                        <td class="p-2.5">Open-source (AOSP)</td>
+                                        <td class="p-2.5">Closed-source (Proprietary)</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="p-2.5 font-semibold">Penyesuaian &amp; Widgets</td>
+                                        <td class="p-2.5">Sangat tinggi &amp; fleksibel</td>
+                                        <td class="p-2.5">Terhad kepada piawaian Apple</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="p-2.5 font-semibold">Stor Aplikasi Rasmi</td>
+                                        <td class="p-2.5">Google Play Store</td>
+                                        <td class="p-2.5">Apple App Store</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="p-2.5 font-semibold">Keselamatan</td>
+                                        <td class="p-2.5">Risiko perisian hasad lebih tinggi jika pasang APK luar</td>
+                                        <td class="p-2.5">Sangat ketat &amp; lebih selamat</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Touch Interface Management -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs">
+                        <div class="p-5 rounded-2xl bg-emerald-50/60 border border-emerald-200">
+                            <h4 class="font-bold text-emerald-950 text-sm mb-2">5.2 Antara Muka Sentuh Android</h4>
+                            <ul class="space-y-1.5 text-slate-700 list-disc pl-4">
+                                <li><strong>Status Bar &amp; Navigation Bar:</strong> Status bar memaparkan bateri, isyarat &amp; masa. Navigation bar mempunyai butang Back, Home dan Recent Apps.</li>
+                                <li><strong>Meletakkan App &amp; Widget:</strong> Buka App Drawer / tekan lama ruang kosong pada Home Screen → pilih Widgets → seret ke skrin.</li>
+                                <li><strong>Mencipta Folder:</strong> Tekan lama ikon aplikasi dan seretkan ke atas ikon aplikasi lain.</li>
+                            </ul>
+                        </div>
+                        <div class="p-5 rounded-2xl bg-indigo-50/60 border border-indigo-200">
+                            <h4 class="font-bold text-indigo-950 text-sm mb-2">5.3 Antara Muka Sentuh iOS</h4>
+                            <ul class="space-y-1.5 text-slate-700 list-disc pl-4">
+                                <li><strong>Home Screen &amp; App Library:</strong> Aplikasi baharu muncul secara automatik dan disusun dalam kategori App Library.</li>
+                                <li><strong>Mengalih Aplikasi:</strong> Tekan lama ikon sehingga bergegar (<em>jiggle mode</em>) → seret ke skrin lain → tekan Done.</li>
+                                <li><strong>Nyahpasang (Uninstall):</strong> Tekan lama ikon aplikasi → ketik <em>Remove App</em> → pilih <em>Delete App</em>.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            `
+        };
+
+        function selectNoteChapter(chapNum) {
+            document.querySelectorAll('.note-chap-btn').forEach(btn => {
+                btn.classList.remove('border-2', 'border-indigo-600', 'bg-indigo-50');
+                btn.classList.add('border', 'border-slate-200', 'bg-white');
+                btn.querySelector('span:first-child').classList.replace('text-indigo-700', 'text-slate-500');
+            });
+            const activeBtn = document.getElementById(`note-btn-${chapNum}`);
+            activeBtn.classList.remove('border', 'border-slate-200', 'bg-white');
+            activeBtn.classList.add('border-2', 'border-indigo-600', 'bg-indigo-50');
+            activeBtn.querySelector('span:first-child').classList.replace('text-slate-500', 'text-indigo-700');
+
+            document.getElementById('note-content-area').innerHTML = notesContent[chapNum];
+        }
+
+        // ---------------------------------------------------------------------
+        // 3. AKTIVITI FORMATIF INTERAKTIF (SESI 1 - SESI 5) & SKOR AUTOMATIK
+        // ---------------------------------------------------------------------
+        const sessionScores = {
+            1: { score: 0, max: 6 },
+            2: { score: 0, max: 6 },
+            3: { score: 0, max: 6 },
+            4: { score: 0, max: 6 },
+            5: { score: 0, max: 4 }
+        };
+
+        function updateScoreDisplay() {
+            let total = 0;
+            let maxTotal = 0;
+            for (let s = 1; s <= 5; s++) {
+                total += sessionScores[s].score;
+                maxTotal += sessionScores[s].max;
+                const badge = document.getElementById(`badge-sess-${s}`);
+                if (badge) {
+                    badge.textContent = `${sessionScores[s].score}/${sessionScores[s].max}`;
+                    if (sessionScores[s].score === sessionScores[s].max) {
+                        badge.className = "text-[11px] font-bold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-300";
+                    }
+                }
+            }
+            document.getElementById('global-score').textContent = total;
+            document.getElementById('global-max').textContent = maxTotal;
+            const pct = Math.round((total / maxTotal) * 100);
+            document.getElementById('global-percent').textContent = `${pct}%`;
+        }
+
+        function showToast(msg, isSuccess = true) {
+            const box = document.getElementById('toast-box');
+            const icon = document.getElementById('toast-icon');
+            const text = document.getElementById('toast-message');
+            icon.textContent = isSuccess ? '✔' : 'ℹ️';
+            icon.className = isSuccess ? 'text-emerald-400 text-lg font-bold' : 'text-amber-400 text-lg font-bold';
+            text.textContent = msg;
+            box.classList.remove('hidden');
+            setTimeout(() => {
+                box.classList.add('hidden');
+            }, 3200);
+        }
+
+        function resetAllScores() {
+            for (let s = 1; s <= 5; s++) {
+                sessionScores[s].score = 0;
+            }
+            updateScoreDisplay();
+            selectFormativeSession(currentFormativeSession);
+            showToast("Semua rekod markah latihan formatif telah diset semula.", false);
+        }
+
+        let currentFormativeSession = 1;
+
+        function selectFormativeSession(sessNum) {
+            currentFormativeSession = sessNum;
+            document.querySelectorAll('.form-sess-btn').forEach(btn => {
+                btn.classList.remove('border-2', 'border-indigo-600', 'bg-indigo-50');
+                btn.classList.add('border', 'border-slate-200', 'bg-white');
+                btn.querySelector('span:first-child').classList.replace('text-indigo-700', 'text-slate-500');
+            });
+            const activeBtn = document.getElementById(`form-btn-${sessNum}`);
+            activeBtn.classList.remove('border', 'border-slate-200', 'bg-white');
+            activeBtn.classList.add('border-2', 'border-indigo-600', 'bg-indigo-50');
+            activeBtn.querySelector('span:first-child').classList.replace('text-slate-500', 'text-indigo-700');
+
+            renderFormativeWorkspace(sessNum);
+        }
+
+        function renderFormativeWorkspace(sessNum) {
+            const container = document.getElementById('formative-workspace');
+
+            if (sessNum === 1) {
+                container.innerHTML = `
+                    <div class="fade-in space-y-6">
+                        <!-- Aktiviti 1A: Susun Aliran Persekitaran OS -->
+                        <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+                            <span class="px-2.5 py-1 rounded-md bg-indigo-100 text-indigo-800 text-xs font-bold">Aktiviti 1A • Susunan Aliran (2 Markah)</span>
+                            <h3 class="text-base font-bold text-slate-900 mt-2 mb-1">Lengkapkan Aliran Persekitaran Sistem Pengoperasian</h3>
+                            <p class="text-xs text-slate-500 mb-4">Pilih komponen yang betul bagi melengkapkan laluan komunikasi dari pengguna ke perkakasan:</p>
+                            <div class="flex flex-wrap items-center gap-2.5 bg-slate-50 p-4 rounded-xl border border-slate-200">
+                                <span class="px-3 py-2 bg-white border border-slate-300 rounded-lg text-xs font-bold">1. User</span>
+                                <span class="font-bold text-indigo-600">→</span>
+                                <select id="s1-flow-1" class="px-3 py-2 bg-white border border-slate-300 rounded-lg text-xs font-semibold">
+                                    <option value="">-- Pilih Komponen 2 --</option>
+                                    <option value="Hardware">Hardware</option>
+                                    <option value="Application">Application Software</option>
+                                    <option value="Kernel">Kernel</option>
+                                </select>
+                                <span class="font-bold text-indigo-600">→</span>
+                                <select id="s1-flow-2" class="px-3 py-2 bg-white border border-slate-300 rounded-lg text-xs font-semibold">
+                                    <option value="">-- Pilih Komponen 3 --</option>
+                                    <option value="Operating System">Operating System (OS)</option>
+                                    <option value="BIOS">BIOS</option>
+                                    <option value="Browser">Web Browser</option>
+                                </select>
+                                <span class="font-bold text-indigo-600">→</span>
+                                <span class="px-3 py-2 bg-white border border-slate-300 rounded-lg text-xs font-bold">4. Hardware</span>
+                            </div>
+                        </div>
+
+                        <!-- Aktiviti 1B: MCQ -->
+                        <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 space-y-4">
+                            <span class="px-2.5 py-1 rounded-md bg-indigo-100 text-indigo-800 text-xs font-bold">Aktiviti 1B • Soalan Aneka Pilihan / MCQ (2 Markah)</span>
+                            <div>
+                                <p class="text-sm font-bold text-slate-900 mb-2">1. Komponen OS manakah yang bertindak sebagai "otak" teras dalam mengawal CPU, memori dan perkakasan di latar belakang?</p>
+                                <div class="space-y-1.5 text-xs">
+                                    <label class="flex items-center gap-2 p-2.5 rounded-lg border border-slate-200 hover:bg-slate-50 cursor-pointer"><input type="radio" name="s1-q1" value="Shell"> Shell</label>
+                                    <label class="flex items-center gap-2 p-2.5 rounded-lg border border-slate-200 hover:bg-slate-50 cursor-pointer"><input type="radio" name="s1-q1" value="Kernel"> Kernel</label>
+                                    <label class="flex items-center gap-2 p-2.5 rounded-lg border border-slate-200 hover:bg-slate-50 cursor-pointer"><input type="radio" name="s1-q1" value="GUI"> Graphical User Interface (GUI)</label>
+                                </div>
+                            </div>
+                            <div>
+                                <p class="text-sm font-bold text-slate-900 mb-2">2. Sistem pengoperasian manakah merupakan contoh produk <em>Open Source</em> yang kod sumbernya bebas diubah suai?</p>
+                                <div class="space-y-1.5 text-xs">
+                                    <label class="flex items-center gap-2 p-2.5 rounded-lg border border-slate-200 hover:bg-slate-50 cursor-pointer"><input type="radio" name="s1-q2" value="Windows"> Microsoft Windows 11</label>
+                                    <label class="flex items-center gap-2 p-2.5 rounded-lg border border-slate-200 hover:bg-slate-50 cursor-pointer"><input type="radio" name="s1-q2" value="Linux"> Linux</label>
+                                    <label class="flex items-center gap-2 p-2.5 rounded-lg border border-slate-200 hover:bg-slate-50 cursor-pointer"><input type="radio" name="s1-q2" value="iOS"> Apple iOS</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Aktiviti 1C: Isi Tempat Kosong -->
+                        <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 space-y-3">
+                            <span class="px-2.5 py-1 rounded-md bg-indigo-100 text-indigo-800 text-xs font-bold">Aktiviti 1C • Isi Tempat Kosong (2 Markah)</span>
+                            <p class="text-sm text-slate-800 leading-relaxed">
+                                1. Antara muka yang menggunakan ikon, tetingkap dan butang serta paling mudah untuk pengguna baharu dikenali sebagai
+                                <input type="text" id="s1-blank-1" placeholder="cth: GUI" class="px-2.5 py-1 border-b-2 border-indigo-400 bg-indigo-50/40 font-bold text-indigo-900 w-28 text-center focus:outline-none"> .
+                            </p>
+                            <p class="text-sm text-slate-800 leading-relaxed">
+                                2. Konsep OS yang membolehkan pengguna mendengar muzik sambil menaip tugasan pada masa yang sama ialah
+                                <input type="text" id="s1-blank-2" placeholder="cth: Multitasking" class="px-2.5 py-1 border-b-2 border-indigo-400 bg-indigo-50/40 font-bold text-indigo-900 w-36 text-center focus:outline-none"> .
+                            </p>
+                        </div>
+
+                        <div class="flex items-center justify-between bg-slate-900 text-white p-4 rounded-2xl">
+                            <div id="s1-feedback" class="text-xs sm:text-sm font-medium text-slate-300">Sila lengkapkan semua jawapan dan tekan butang semak.</div>
+                            <button onclick="gradeSession1()" class="px-5 py-2.5 bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-bold text-sm rounded-xl transition">
+                                Semak Jawapan Sesi 1
+                            </button>
+                        </div>
+                    </div>
+                `;
+            } else if (sessNum === 2) {
+                container.innerHTML = `
+                    <div class="fade-in space-y-6">
+                        <!-- Aktiviti 2A: Simulasi Memory Placement Strategy -->
+                        <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+                            <span class="px-2.5 py-1 rounded-md bg-indigo-100 text-indigo-800 text-xs font-bold">Aktiviti 2A • Simulasi Placement Strategy (3 Markah)</span>
+                            <h3 class="text-base font-bold text-slate-900 mt-2 mb-1">Senario Ruang Memori RAM Kosong</h3>
+                            <p class="text-xs text-slate-600 mb-4">Satu program baharu memerlukan saiz memori <strong>180 MB</strong>. Berdasarkan blok RAM kosong di bawah, tentukan blok mana yang akan dipilih bagi setiap strategi:</p>
+
+                            <div class="grid grid-cols-3 gap-3 mb-5 text-center">
+                                <div class="p-3 rounded-xl bg-slate-100 border border-slate-300">
+                                    <span class="text-xs font-bold text-slate-500 block">BLOK A</span>
+                                    <span class="text-lg font-extrabold text-slate-900">100 MB</span>
+                                </div>
+                                <div class="p-3 rounded-xl bg-indigo-50 border border-indigo-300">
+                                    <span class="text-xs font-bold text-indigo-600 block">BLOK B</span>
+                                    <span class="text-lg font-extrabold text-indigo-950">300 MB</span>
+                                </div>
+                                <div class="p-3 rounded-xl bg-emerald-50 border border-emerald-300">
+                                    <span class="text-xs font-bold text-emerald-600 block">BLOK C</span>
+                                    <span class="text-lg font-extrabold text-emerald-950">200 MB</span>
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
+                                <div>
+                                    <label class="font-bold text-slate-800 block mb-1">1. First-Fit memilih:</label>
+                                    <select id="s2-fit-1" class="w-full p-2.5 border border-slate-300 rounded-xl bg-white">
+                                        <option value="">-- Pilih Blok --</option>
+                                        <option value="A">Blok A (100 MB)</option>
+                                        <option value="B">Blok B (300 MB)</option>
+                                        <option value="C">Blok C (200 MB)</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="font-bold text-slate-800 block mb-1">2. Best-Fit memilih:</label>
+                                    <select id="s2-fit-2" class="w-full p-2.5 border border-slate-300 rounded-xl bg-white">
+                                        <option value="">-- Pilih Blok --</option>
+                                        <option value="A">Blok A (100 MB)</option>
+                                        <option value="B">Blok B (300 MB)</option>
+                                        <option value="C">Blok C (200 MB)</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="font-bold text-slate-800 block mb-1">3. Worst-Fit memilih:</label>
+                                    <select id="s2-fit-3" class="w-full p-2.5 border border-slate-300 rounded-xl bg-white">
+                                        <option value="">-- Pilih Blok --</option>
+                                        <option value="A">Blok A (100 MB)</option>
+                                        <option value="B">Blok B (300 MB)</option>
+                                        <option value="C">Blok C (200 MB)</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Aktiviti 2B: Isi Tempat Kosong Process States -->
+                        <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 space-y-3">
+                            <span class="px-2.5 py-1 rounded-md bg-indigo-100 text-indigo-800 text-xs font-bold">Aktiviti 2B • Isi Tempat Kosong &amp; MCQ (3 Markah)</span>
+                            <p class="text-sm text-slate-800">
+                                1. Apabila sesuatu proses sedang dilaksanakan oleh CPU, ia berada dalam keadaan (<em>state</em>)
+                                <input type="text" id="s2-state-1" placeholder="cth: Running" class="px-2.5 py-1 border-b-2 border-indigo-400 bg-indigo-50/40 font-bold text-indigo-900 w-32 text-center focus:outline-none"> .
+                            </p>
+                            <p class="text-sm text-slate-800">
+                                2. Apabila proses selesai dilaksanakan sepenuhnya, ia berpindah ke keadaan
+                                <input type="text" id="s2-state-2" placeholder="cth: Terminated" class="px-2.5 py-1 border-b-2 border-indigo-400 bg-indigo-50/40 font-bold text-indigo-900 w-36 text-center focus:outline-none"> .
+                            </p>
+                            <div class="pt-2">
+                                <p class="text-sm font-bold text-slate-900 mb-2">3. Algoritma penjadualan manakah yang memberikan hirisan masa tetap (<em>fixed time slice</em>) secara adil kepada setiap proses?</p>
+                                <div class="flex flex-wrap gap-3 text-xs">
+                                    <label class="flex items-center gap-2 p-2.5 rounded-lg border border-slate-200 cursor-pointer"><input type="radio" name="s2-q3" value="FIFO"> First In First Out (FIFO)</label>
+                                    <label class="flex items-center gap-2 p-2.5 rounded-lg border border-slate-200 cursor-pointer"><input type="radio" name="s2-q3" value="RR"> Round Robin</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center justify-between bg-slate-900 text-white p-4 rounded-2xl">
+                            <div id="s2-feedback" class="text-xs sm:text-sm font-medium text-slate-300">Semak jawapan anda setelah selesai.</div>
+                            <button onclick="gradeSession2()" class="px-5 py-2.5 bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-bold text-sm rounded-xl transition">
+                                Semak Jawapan Sesi 2
+                            </button>
+                        </div>
+                    </div>
+                `;
+            } else if (sessNum === 3) {
+                container.innerHTML = `
+                    <div class="fade-in space-y-6">
+                        <!-- Aktiviti 3A: Padanan Kaedah Akses Fail -->
+                        <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+                            <span class="px-2.5 py-1 rounded-md bg-indigo-100 text-indigo-800 text-xs font-bold">Aktiviti 3A • Padanan Senario Akses Fail (3 Markah)</span>
+                            <h3 class="text-base font-bold text-slate-900 mt-2 mb-3">Padankan senario berikut dengan Kaedah Akses Fail (Access Method) yang paling sesuai:</h3>
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+                                <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200">
+                                    <p class="font-bold text-slate-800 mb-2">1. Pangkalan Data Beli-Belah Dalam Talian (Online Shopping Database)</p>
+                                    <select id="s3-acc-1" class="w-full p-2 border border-slate-300 rounded-lg bg-white">
+                                        <option value="">-- Pilih Kaedah --</option>
+                                        <option value="Sequential">Sequential Access</option>
+                                        <option value="Direct">Direct Access</option>
+                                        <option value="Indexed">Indexed Access</option>
+                                    </select>
+                                </div>
+                                <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200">
+                                    <p class="font-bold text-slate-800 mb-2">2. Log Transaksi ATM / Pita Sandaran (Log File)</p>
+                                    <select id="s3-acc-2" class="w-full p-2 border border-slate-300 rounded-lg bg-white">
+                                        <option value="">-- Pilih Kaedah --</option>
+                                        <option value="Sequential">Sequential Access</option>
+                                        <option value="Direct">Direct Access</option>
+                                        <option value="Indexed">Indexed Access</option>
+                                    </select>
+                                </div>
+                                <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200">
+                                    <p class="font-bold text-slate-800 mb-2">3. Capaian Terus Fail Cakera Keras (Hard Disk File)</p>
+                                    <select id="s3-acc-3" class="w-full p-2 border border-slate-300 rounded-lg bg-white">
+                                        <option value="">-- Pilih Kaedah --</option>
+                                        <option value="Sequential">Sequential Access</option>
+                                        <option value="Direct">Direct Access</option>
+                                        <option value="Indexed">Indexed Access</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Aktiviti 3B: Permission Game -->
+                        <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 space-y-5">
+                            <div>
+                                <span class="px-2.5 py-1 rounded-md bg-emerald-100 text-emerald-800 text-xs font-bold">Aktiviti 3B • Permainan Interaktif "Permission Game" (3 Markah)</span>
+                                <h3 class="text-base font-bold text-slate-900 mt-2">Tafsirkan Kod Kebenaran Fail di Bawah</h3>
+                                <p class="text-xs text-slate-500">Tandakan kotak semak (Read, Write, Execute) yang dibenarkan bagi setiap kumpulan pengguna.</p>
+                            </div>
+
+                            <!-- Soalan Permission 1 -->
+                            <div class="p-4 rounded-xl bg-slate-50 border border-slate-200">
+                                <p class="text-sm font-bold text-slate-900 mb-2">Kod 1: <code class="px-2 py-0.5 bg-slate-900 text-emerald-400 rounded font-mono text-base">rw-r--r--</code></p>
+                                <div class="overflow-x-auto">
+                                    <table class="w-full text-xs text-center border border-slate-300 bg-white">
+                                        <thead class="bg-slate-200 font-bold">
+                                            <tr><th class="p-2 text-left">Kumpulan Pengguna</th><th class="p-2">Read (r)</th><th class="p-2">Write (w)</th><th class="p-2">Execute (x)</th></tr>
+                                        </thead>
+                                        <tbody class="divide-y divide-slate-200">
+                                            <tr><td class="p-2 text-left font-semibold">Owner</td><td><input type="checkbox" id="p1-or"></td><td><input type="checkbox" id="p1-ow"></td><td><input type="checkbox" id="p1-ox"></td></tr>
+                                            <tr><td class="p-2 text-left font-semibold">Group</td><td><input type="checkbox" id="p1-gr"></td><td><input type="checkbox" id="p1-gw"></td><td><input type="checkbox" id="p1-gx"></td></tr>
+                                            <tr><td class="p-2 text-left font-semibold">Others</td><td><input type="checkbox" id="p1-tr"></td><td><input type="checkbox" id="p1-tw"></td><td><input type="checkbox" id="p1-tx"></td></tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <!-- Soalan Permission 2 -->
+                            <div class="p-4 rounded-xl bg-slate-50 border border-slate-200">
+                                <p class="text-sm font-bold text-slate-900 mb-2">Kod 2: <code class="px-2 py-0.5 bg-slate-900 text-emerald-400 rounded font-mono text-base">rwxr-x---</code></p>
+                                <div class="overflow-x-auto">
+                                    <table class="w-full text-xs text-center border border-slate-300 bg-white">
+                                        <thead class="bg-slate-200 font-bold">
+                                            <tr><th class="p-2 text-left">Kumpulan Pengguna</th><th class="p-2">Read (r)</th><th class="p-2">Write (w)</th><th class="p-2">Execute (x)</th></tr>
+                                        </thead>
+                                        <tbody class="divide-y divide-slate-200">
+                                            <tr><td class="p-2 text-left font-semibold">Owner</td><td><input type="checkbox" id="p2-or"></td><td><input type="checkbox" id="p2-ow"></td><td><input type="checkbox" id="p2-ox"></td></tr>
+                                            <tr><td class="p-2 text-left font-semibold">Group</td><td><input type="checkbox" id="p2-gr"></td><td><input type="checkbox" id="p2-gw"></td><td><input type="checkbox" id="p2-gx"></td></tr>
+                                            <tr><td class="p-2 text-left font-semibold">Others</td><td><input type="checkbox" id="p2-tr"></td><td><input type="checkbox" id="p2-tw"></td><td><input type="checkbox" id="p2-tx"></td></tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <!-- Soalan MCQ Kebenaran -->
+                            <div>
+                                <p class="text-sm font-bold text-slate-900 mb-2">3. Bagi kod kebenaran <code>rw-r-----</code>, apakah hak akses yang dimiliki oleh <strong>Others</strong>?</p>
+                                <div class="flex flex-wrap gap-3 text-xs">
+                                    <label class="flex items-center gap-2 p-2.5 rounded-lg border border-slate-200 cursor-pointer"><input type="radio" name="s3-perm-q3" value="Read"> Read sahaja</label>
+                                    <label class="flex items-center gap-2 p-2.5 rounded-lg border border-slate-200 cursor-pointer"><input type="radio" name="s3-perm-q3" value="None"> Tiada sebarang akses (---)</label>
+                                    <label class="flex items-center gap-2 p-2.5 rounded-lg border border-slate-200 cursor-pointer"><input type="radio" name="s3-perm-q3" value="All"> Read &amp; Write</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center justify-between bg-slate-900 text-white p-4 rounded-2xl">
+                            <div id="s3-feedback" class="text-xs sm:text-sm font-medium text-slate-300">Semak jawapan Permission Game &amp; Padanan Fail anda.</div>
+                            <button onclick="gradeSession3()" class="px-5 py-2.5 bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-bold text-sm rounded-xl transition">
+                                Semak Jawapan Sesi 3
+                            </button>
+                        </div>
+                    </div>
+                `;
+            } else if (sessNum === 4) {
+                container.innerHTML = `
+                    <div class="fade-in space-y-6">
+                        <!-- Aktiviti 4A: Padanan Edisi Windows -->
+                        <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+                            <span class="px-2.5 py-1 rounded-md bg-indigo-100 text-indigo-800 text-xs font-bold">Aktiviti 4A • Padanan Edisi Windows (3 Markah)</span>
+                            <h3 class="text-base font-bold text-slate-900 mt-2 mb-3">Pilih Edisi Windows 11 yang paling tepat bagi setiap senario:</h3>
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+                                <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200">
+                                    <p class="font-bold text-slate-800 mb-2">1. Makmal komputer kolej &amp; komputer peperiksaan pelajar</p>
+                                    <select id="s4-ed-1" class="w-full p-2 border border-slate-300 rounded-lg bg-white">
+                                        <option value="">-- Pilih Edisi --</option>
+                                        <option value="Home">Windows Home</option>
+                                        <option value="Pro">Windows Pro</option>
+                                        <option value="Education">Windows Education</option>
+                                        <option value="Enterprise">Windows Enterprise</option>
+                                    </select>
+                                </div>
+                                <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200">
+                                    <p class="font-bold text-slate-800 mb-2">2. Staf pejabat yang memerlukan BitLocker &amp; Remote Desktop</p>
+                                    <select id="s4-ed-2" class="w-full p-2 border border-slate-300 rounded-lg bg-white">
+                                        <option value="">-- Pilih Edisi --</option>
+                                        <option value="Home">Windows Home</option>
+                                        <option value="Pro">Windows Pro</option>
+                                        <option value="Education">Windows Education</option>
+                                        <option value="Enterprise">Windows Enterprise</option>
+                                    </select>
+                                </div>
+                                <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200">
+                                    <p class="font-bold text-slate-800 mb-2">3. Ibu pejabat bank besar dengan 500 pekerja &amp; kawalan berpusat</p>
+                                    <select id="s4-ed-3" class="w-full p-2 border border-slate-300 rounded-lg bg-white">
+                                        <option value="">-- Pilih Edisi --</option>
+                                        <option value="Home">Windows Home</option>
+                                        <option value="Pro">Windows Pro</option>
+                                        <option value="Education">Windows Education</option>
+                                        <option value="Enterprise">Windows Enterprise</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Aktiviti 4B: Treasure Hunt & Maintenance Tool -->
+                        <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 space-y-4">
+                            <span class="px-2.5 py-1 rounded-md bg-indigo-100 text-indigo-800 text-xs font-bold">Aktiviti 4B • System Treasure Hunt &amp; Maintenance (3 Markah)</span>
+                            <p class="text-sm text-slate-800">
+                                1. Untuk menyemak nama komputer, saiz RAM dan jenis sistem (32/64-bit), laluan tetapan ialah:
+                                <code>Settings → System → </code>
+                                <input type="text" id="s4-hunt-1" placeholder="cth: About" class="px-2.5 py-1 border-b-2 border-indigo-400 bg-indigo-50/40 font-bold text-indigo-900 w-28 text-center focus:outline-none"> .
+                            </p>
+                            <p class="text-sm text-slate-800">
+                                2. Pintasan papan kekunci untuk membuka <strong>File Explorer</strong> dengan pantas ialah <code>Windows + </code>
+                                <input type="text" id="s4-hunt-2" placeholder="1 huruf" maxlength="1" class="px-2.5 py-1 border-b-2 border-indigo-400 bg-indigo-50/40 font-bold text-indigo-900 w-16 text-center uppercase focus:outline-none"> .
+                            </p>
+                            <div>
+                                <p class="text-sm font-bold text-slate-900 mb-2">3. Alat penyelenggaraan manakah yang digunakan untuk membuang <em>temporary files</em> dan mengosongkan Recycle Bin?</p>
+                                <div class="flex flex-wrap gap-3 text-xs">
+                                    <label class="flex items-center gap-2 p-2.5 rounded-lg border border-slate-200 cursor-pointer"><input type="radio" name="s4-tool-3" value="Defrag"> Disk Defragmenter</label>
+                                    <label class="flex items-center gap-2 p-2.5 rounded-lg border border-slate-200 cursor-pointer"><input type="radio" name="s4-tool-3" value="Cleanup"> Disk Cleanup</label>
+                                    <label class="flex items-center gap-2 p-2.5 rounded-lg border border-slate-200 cursor-pointer"><input type="radio" name="s4-tool-3" value="Repair"> System Repair Disc</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center justify-between bg-slate-900 text-white p-4 rounded-2xl">
+                            <div id="s4-feedback" class="text-xs sm:text-sm font-medium text-slate-300">Semak jawapan Windows OS anda.</div>
+                            <button onclick="gradeSession4()" class="px-5 py-2.5 bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-bold text-sm rounded-xl transition">
+                                Semak Jawapan Sesi 4
+                            </button>
+                        </div>
+                    </div>
+                `;
+            } else if (sessNum === 5) {
+                container.innerHTML = `
+                    <div class="fade-in space-y-6">
+                        <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 space-y-4">
+                            <span class="px-2.5 py-1 rounded-md bg-indigo-100 text-indigo-800 text-xs font-bold">Aktiviti 5A • Kenal Pasti Mobile OS &amp; Perbandingan (4 Markah)</span>
+                            <h3 class="text-base font-bold text-slate-900">Padankan model peranti mudah alih berikut dengan Sistem Pengoperasian yang tepat:</h3>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs">
+                                <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200">
+                                    <p class="font-bold text-slate-800 mb-2">1. Samsung Galaxy S23 / Google Pixel</p>
+                                    <select id="s5-dev-1" class="w-full p-2 border border-slate-300 rounded-lg bg-white">
+                                        <option value="">-- Pilih OS --</option>
+                                        <option value="Android">Android</option>
+                                        <option value="iOS">Apple iOS</option>
+                                        <option value="WindowsPhone">Windows Phone</option>
+                                    </select>
+                                </div>
+                                <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200">
+                                    <p class="font-bold text-slate-800 mb-2">2. Apple iPhone 14 / iPad</p>
+                                    <select id="s5-dev-2" class="w-full p-2 border border-slate-300 rounded-lg bg-white">
+                                        <option value="">-- Pilih OS --</option>
+                                        <option value="Android">Android</option>
+                                        <option value="iOS">Apple iOS</option>
+                                        <option value="WindowsPhone">Windows Phone</option>
+                                    </select>
+                                </div>
+                                <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200">
+                                    <p class="font-bold text-slate-800 mb-2">3. Nokia Lumia / Microsoft Lumia</p>
+                                    <select id="s5-dev-3" class="w-full p-2 border border-slate-300 rounded-lg bg-white">
+                                        <option value="">-- Pilih OS --</option>
+                                        <option value="Android">Android</option>
+                                        <option value="iOS">Apple iOS</option>
+                                        <option value="WindowsPhone">Windows Phone</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="pt-2">
+                                <p class="text-sm font-bold text-slate-900 mb-2">4. Antara berikut, pernyataan manakah BENAR mengenai perbezaan Android dan iOS?</p>
+                                <div class="space-y-1.5 text-xs">
+                                    <label class="flex items-center gap-2 p-2.5 rounded-lg border border-slate-200 cursor-pointer"><input type="radio" name="s5-q4" value="A"> iOS bersifat Open-Source manakala Android bersifat Closed-Source.</label>
+                                    <label class="flex items-center gap-2 p-2.5 rounded-lg border border-slate-200 cursor-pointer"><input type="radio" name="s5-q4" value="B"> Android dibangunkan oleh Google (Open-Source) dan mempunyai tahap penyesuaian (customization) yang lebih tinggi.</label>
+                                    <label class="flex items-center gap-2 p-2.5 rounded-lg border border-slate-200 cursor-pointer"><input type="radio" name="s5-q4" value="C"> Kedua-dua Android dan iOS menggunakan Google Play Store secara rasmi.</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center justify-between bg-slate-900 text-white p-4 rounded-2xl">
+                            <div id="s5-feedback" class="text-xs sm:text-sm font-medium text-slate-300">Semak jawapan Mobile OS anda.</div>
+                            <button onclick="gradeSession5()" class="px-5 py-2.5 bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-bold text-sm rounded-xl transition">
+                                Semak Jawapan Sesi 5
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+
+        // Grading Functions
+        function gradeSession1() {
+            let pts = 0;
+            if (document.getElementById('s1-flow-1').value === 'Application') pts++;
+            if (document.getElementById('s1-flow-2').value === 'Operating System') pts++;
+            const q1 = document.querySelector('input[name="s1-q1"]:checked');
+            const q2 = document.querySelector('input[name="s1-q2"]:checked');
+            if (q1 && q1.value === 'Kernel') pts++;
+            if (q2 && q2.value === 'Linux') pts++;
+            const b1 = document.getElementById('s1-blank-1').value.trim().toLowerCase();
+            const b2 = document.getElementById('s1-blank-2').value.trim().toLowerCase();
+            if (b1 === 'gui' || b1 === 'graphical user interface') pts++;
+            if (b2 === 'multitasking' || b2 === 'multi-tasking') pts++;
+
+            sessionScores[1].score = pts;
+            updateScoreDisplay();
+            document.getElementById('s1-feedback').innerHTML = `<span class="text-emerald-400 font-bold">Keputusan Sesi 1: ${pts} / 6 markah!</span> (Jawapan: Application → OS, Kernel, Linux, GUI, Multitasking)`;
+            showToast(`Sesi 1 disemak: ${pts}/6 markah!`);
+        }
+
+        function gradeSession2() {
+            let pts = 0;
+            if (document.getElementById('s2-fit-1').value === 'B') pts++;
+            if (document.getElementById('s2-fit-2').value === 'C') pts++;
+            if (document.getElementById('s2-fit-3').value === 'B') pts++;
+            const st1 = document.getElementById('s2-state-1').value.trim().toLowerCase();
+            const st2 = document.getElementById('s2-state-2').value.trim().toLowerCase();
+            if (st1 === 'running') pts++;
+            if (st2 === 'terminated') pts++;
+            const q3 = document.querySelector('input[name="s2-q3"]:checked');
+            if (q3 && q3.value === 'RR') pts++;
+
+            sessionScores[2].score = pts;
+            updateScoreDisplay();
+            document.getElementById('s2-feedback').innerHTML = `<span class="text-emerald-400 font-bold">Keputusan Sesi 2: ${pts} / 6 markah!</span> (First-Fit: Blok B, Best-Fit: Blok C, Worst-Fit: Blok B, Running, Terminated, Round Robin)`;
+            showToast(`Sesi 2 disemak: ${pts}/6 markah!`);
+        }
+
+        function gradeSession3() {
+            let pts = 0;
+            if (document.getElementById('s3-acc-1').value === 'Indexed') pts++;
+            if (document.getElementById('s3-acc-2').value === 'Sequential') pts++;
+            if (document.getElementById('s3-acc-3').value === 'Direct') pts++;
+
+            // Permission 1: rw-r--r--
+            const p1Correct =
+                document.getElementById('p1-or').checked &&
+                document.getElementById('p1-ow').checked &&
+                !document.getElementById('p1-ox').checked &&
+                document.getElementById('p1-gr').checked &&
+                !document.getElementById('p1-gw').checked &&
+                !document.getElementById('p1-gx').checked &&
+                document.getElementById('p1-tr').checked &&
+                !document.getElementById('p1-tw').checked &&
+                !document.getElementById('p1-tx').checked;
+            if (p1Correct) pts++;
+
+            // Permission 2: rwxr-x---
+            const p2Correct =
+                document.getElementById('p2-or').checked &&
+                document.getElementById('p2-ow').checked &&
+                document.getElementById('p2-ox').checked &&
+                document.getElementById('p2-gr').checked &&
+                !document.getElementById('p2-gw').checked &&
+                document.getElementById('p2-gx').checked &&
+                !document.getElementById('p2-tr').checked &&
+                !document.getElementById('p2-tw').checked &&
+                !document.getElementById('p2-tx').checked;
+            if (p2Correct) pts++;
+
+            const q3 = document.querySelector('input[name="s3-perm-q3"]:checked');
+            if (q3 && q3.value === 'None') pts++;
+
+            sessionScores[3].score = pts;
+            updateScoreDisplay();
+            document.getElementById('s3-feedback').innerHTML = `<span class="text-emerald-400 font-bold">Keputusan Sesi 3: ${pts} / 6 markah!</span> (Indexed, Sequential, Direct, rw-r--r--, rwxr-x---, Tiada akses)`;
+            showToast(`Sesi 3 disemak: ${pts}/6 markah!`);
+        }
+
+        function gradeSession4() {
+            let pts = 0;
+            if (document.getElementById('s4-ed-1').value === 'Education') pts++;
+            if (document.getElementById('s4-ed-2').value === 'Pro') pts++;
+            if (document.getElementById('s4-ed-3').value === 'Enterprise') pts++;
+
+            const h1 = document.getElementById('s4-hunt-1').value.trim().toLowerCase();
+            const h2 = document.getElementById('s4-hunt-2').value.trim().toLowerCase();
+            if (h1 === 'about') pts++;
+            if (h2 === 'e') pts++;
+
+            const q3 = document.querySelector('input[name="s4-tool-3"]:checked');
+            if (q3 && q3.value === 'Cleanup') pts++;
+
+            sessionScores[4].score = pts;
+            updateScoreDisplay();
+            document.getElementById('s4-feedback').innerHTML = `<span class="text-emerald-400 font-bold">Keputusan Sesi 4: ${pts} / 6 markah!</span> (Education, Pro, Enterprise, About, Windows+E, Disk Cleanup)`;
+            showToast(`Sesi 4 disemak: ${pts}/6 markah!`);
+        }
+
+        function gradeSession5() {
+            let pts = 0;
+            if (document.getElementById('s5-dev-1').value === 'Android') pts++;
+            if (document.getElementById('s5-dev-2').value === 'iOS') pts++;
+            if (document.getElementById('s5-dev-3').value === 'WindowsPhone') pts++;
+            const q4 = document.querySelector('input[name="s5-q4"]:checked');
+            if (q4 && q4.value === 'B') pts++;
+
+            sessionScores[5].score = pts;
+            updateScoreDisplay();
+            document.getElementById('s5-feedback').innerHTML = `<span class="text-emerald-400 font-bold">Keputusan Sesi 5: ${pts} / 4 markah!</span> (Android, Apple iOS, Windows Phone, Pilihan B)`;
+            showToast(`Sesi 5 disemak: ${pts}/4 markah!`);
+        }
+
+        // ---------------------------------------------------------------------
+        // 4. NAVIGATION HELPERS
+        // ---------------------------------------------------------------------
+        // 4. ULANG KAJI AKHIR (20 SOALAN MCQ KOMPREHENSIF BAB 1 - BAB 5)
+        // ---------------------------------------------------------------------
+        const revisionQuestions = [
+            // BAB 1 (4 Soalan)
+            {
+                id: 1,
+                chapter: 1,
+                question: "Apakah struktur sistem pengoperasian di mana semua fungsi teras digabungkan dalam satu program besar yang pantas tetapi sukar diubah suai?",
+                options: [
+                    "Distributed Operating System",
+                    "Monolithic Operating System",
+                    "Microkernel Network System",
+                    "Virtual Machine Monitor"
+                ],
+                answer: 1,
+                explanation: "Monolithic OS (seperti UNIX tradisional) meletakkan semua fungsi sistem dalam satu program teras yang besar; prestasinya pantas tetapi sukar untuk diselenggara atau diubah suai."
+            },
+            {
+                id: 2,
+                chapter: 1,
+                question: "Komponen sistem pengoperasian manakah yang bertindak sebagai 'otak' teras dalam mengawal CPU, memori dan perkakasan di latar belakang?",
+                options: [
+                    "Shell",
+                    "File Explorer",
+                    "Kernel",
+                    "Command Prompt"
+                ],
+                answer: 2,
+                explanation: "Kernel ialah teras utama OS yang menguruskan CPU, memori (RAM), dan peranti perkakasan secara langsung di latar belakang."
+            },
+            {
+                id: 3,
+                chapter: 1,
+                question: "Konsep OS yang membahagikan masa CPU dalam hirisan masa kecil (time slice) secara adil kepada ramai pengguna yang berkongsi pelayan (server) yang sama ialah:",
+                options: [
+                    "Time Sharing",
+                    "Single Processing",
+                    "Closed Source",
+                    "Batch Processing"
+                ],
+                answer: 0,
+                explanation: "Time Sharing membolehkan masa CPU dikongsi antara pelbagai pengguna/program dengan memberikan setiap tugas satu hirisan masa (time slice) yang singkat."
+            },
+            {
+                id: 4,
+                chapter: 1,
+                question: "Antara berikut, yang manakah kelebihan utama Command Line Interface (CLI) berbanding Graphical User Interface (GUI)?",
+                options: [
+                    "Lebih mudah dipelajari oleh pengguna baharu kerana mempunyai ikon visual",
+                    "Menggunakan sumber grafik yang sangat tinggi",
+                    "Pantas, berkuasa, dan cekap untuk pentadbir sistem melaksanakan arahan",
+                    "Tidak memerlukan papan kekunci untuk beroperasi"
+                ],
+                answer: 2,
+                explanation: "CLI menggunakan arahan berasaskan teks (seperti dir, cd, ls) yang jauh lebih pantas dan berkuasa bagi pengguna mahir serta pentadbir sistem."
+            },
+
+            // BAB 2 (4 Soalan)
+            {
+                id: 5,
+                chapter: 2,
+                question: "Susunkan hierarki memori berikut daripada kelajuan paling PANTAS kepada paling PERLAHAN:",
+                options: [
+                    "Main Memory (RAM) → Cache → Register → Secondary Storage",
+                    "Register → Cache → Main Memory (RAM) → Secondary Storage",
+                    "Cache → Register → Secondary Storage → Main Memory (RAM)",
+                    "Secondary Storage → Main Memory (RAM) → Cache → Register"
+                ],
+                answer: 1,
+                explanation: "Semakin hampir memori dengan CPU, semakin pantas kelajuannya dan semakin tinggi kosnya: CPU Register → L1/L2 Cache → RAM → Secondary Storage (SSD/HDD)."
+            },
+            {
+                id: 6,
+                chapter: 2,
+                question: "Terdapat tiga blok memori kosong: Blok A (120 MB), Blok B (350 MB), dan Blok C (210 MB). Jika satu proses memerlukan 200 MB, blok manakah akan dipilih oleh strategi Best-Fit?",
+                options: [
+                    "Blok A (120 MB)",
+                    "Blok B (350 MB)",
+                    "Blok C (210 MB)",
+                    "Tiada blok yang sesuai"
+                ],
+                answer: 2,
+                explanation: "Best-Fit memilih blok kosong paling kecil yang mencukupi untuk menampung proses (210 MB adalah paling hampir dengan 200 MB, meninggalkan baki hanya 10 MB)."
+            },
+            {
+                id: 7,
+                chapter: 2,
+                question: "Apakah perbezaan utama antara Paging dan Segmentation dalam pengurusan Virtual Memory?",
+                options: [
+                    "Paging membahagikan memori kepada saiz tetap (fixed-size pages), manakala Segmentation membahagikan program mengikut bahagian logik (code, data, stack)",
+                    "Paging digunakan dalam cakera liut sahaja, manakala Segmentation digunakan dalam CPU Register",
+                    "Segmentation mempunyai saiz blok yang tetap, manakala Paging mempunyai saiz yang berubah-ubah",
+                    "Paging hanya digunakan pada sistem operasi telefon pintar"
+                ],
+                answer: 0,
+                explanation: "Paging membahagikan memori kepada halaman bersaiz tetap (fixed-size) bagi mengurangkan fragmentasi, manakala Segmentation membahagikan program secara logik."
+            },
+            {
+                id: 8,
+                chapter: 2,
+                question: "Dalam kitaran hayat proses (Process States), keadaan manakah berlaku apabila sesuatu proses sedang menunggu operasi Input/Output (I/O) selesai?",
+                options: [
+                    "New",
+                    "Running",
+                    "Waiting (Blocked)",
+                    "Terminated"
+                ],
+                answer: 2,
+                explanation: "Apabila proses memerlukan data daripada peranti I/O atau menunggu sesuatu peristiwa (event wait), ia berpindah daripada Running ke keadaan Waiting."
+            },
+
+            // BAB 3 (4 Soalan)
+            {
+                id: 9,
+                chapter: 3,
+                question: "Kaedah akses fail (File Access Method) manakah yang menggunakan jadual indeks khas yang menunjuk kepada blok data, dan amat sesuai untuk pangkalan data (database)?",
+                options: [
+                    "Sequential Access",
+                    "Indexed Access",
+                    "Magnetic Tape Access",
+                    "Single-Level Access"
+                ],
+                answer: 1,
+                explanation: "Indexed Access menggunakan jadual indeks (index table) yang menunjuk terus ke blok data, menjadikannya pantas dan fleksibel untuk sistem pangkalan data."
+            },
+            {
+                id: 10,
+                chapter: 3,
+                question: "Apakah kelemahan utama struktur direktori aras tunggal (Single-Level Directory)?",
+                options: [
+                    "Tidak boleh menyimpan fail dokumen dan gambar",
+                    "Mudah berlaku konflik nama fail (name conflicts) apabila ramai pengguna menyimpan fail",
+                    "Memerlukan pelayan awan untuk berfungsi",
+                    "Terlalu rumit untuk pengguna baharu"
+                ],
+                answer: 1,
+                explanation: "Dalam Single-Level Directory, semua fail diletakkan dalam satu direktori utama (Root), menyebabkan dua fail tidak boleh mempunyai nama yang sama."
+            },
+            {
+                id: 11,
+                chapter: 3,
+                question: "Kaedah peruntukan fail (File Allocation Method) manakah yang menyimpan fail dalam blok cakera yang bersebelahan secara berterusan serta menawarkan capaian paling pantas?",
+                options: [
+                    "Contiguous File Allocation",
+                    "Linked File Allocation",
+                    "Indexed File Allocation",
+                    "Bit Vector Allocation"
+                ],
+                answer: 0,
+                explanation: "Contiguous File Allocation menyimpan data dalam blok bersebelahan secara berterusan, memberikan kelajuan bacaan paling pantas walaupun terdedah kepada external fragmentation."
+            },
+            {
+                id: 12,
+                chapter: 3,
+                question: "Jika sesuatu fail mempunyai kod kebenaran rwxr-xr--, apakah hak akses yang dimiliki oleh kumpulan pengguna 'Group'?",
+                options: [
+                    "Read, Write dan Execute",
+                    "Read dan Execute sahaja",
+                    "Read sahaja",
+                    "Tiada sebarang akses"
+                ],
+                answer: 1,
+                explanation: "Kod rwxr-xr-- dipecahkan kepada Owner (rwx), Group (r-x = Read & Execute sahaja), dan Others (r-- = Read sahaja)."
+            },
+
+            // BAB 4 (4 Soalan)
+            {
+                id: 13,
+                chapter: 4,
+                question: "Edisi Windows 11 manakah yang direka khusus untuk kegunaan pejabat dan perniagaan serta menyokong ciri penyulitan BitLocker, Remote Desktop, dan Domain Join?",
+                options: [
+                    "Windows 11 Home",
+                    "Windows 11 Pro",
+                    "Windows 11 Starter",
+                    "Windows 11 Mobile"
+                ],
+                answer: 1,
+                explanation: "Windows Professional (Pro) dilengkapi ciri perniagaan dan keselamatan seperti BitLocker, Remote Desktop, Domain Join, dan Group Policy."
+            },
+            {
+                id: 14,
+                chapter: 4,
+                question: "Apakah kaedah pemasangan Windows yang membolehkan dua sistem pengoperasian berbeza (contohnya Windows dan Linux) dipasang pada komputer yang sama dan dipilih semasa startup?",
+                options: [
+                    "Upgrade Installation",
+                    "Multiboot Installation",
+                    "System Image Recovery",
+                    "Disk Defragmentation"
+                ],
+                answer: 1,
+                explanation: "Multiboot Installation membolehkan lebih daripada satu OS dipasang dalam satu komputer dan pengguna boleh memilih OS yang ingin digunakan ketika menghidupkan PC."
+            },
+            {
+                id: 15,
+                chapter: 4,
+                question: "Mengapakah utiliti Disk Defragmenter TIDAK diperlukan pada pemacu storan jenis Solid State Drive (SSD)?",
+                options: [
+                    "Kerana SSD tidak menyimpan sebarang fail sistem",
+                    "Kerana SSD tidak mempunyai bahagian mekanikal berputar dan menyusun data secara elektronik, malah defragmentasi boleh memendekkan jangka hayat SSD",
+                    "Kerana SSD hanya menyokong sistem operasi Linux",
+                    "Kerana Disk Defragmenter hanya berfungsi pada pemacu USB"
+                ],
+                answer: 1,
+                explanation: "Disk Defragmenter menyusun semula serpihan data pada cakera keras mekanikal (HDD) untuk kelajuan capaian, tetapi tidak diperlukan untuk SSD."
+            },
+            {
+                id: 16,
+                chapter: 4,
+                question: "Ciri keselamatan dalam Windows Security yang berfungsi melindungi kata laluan pengguna daripada laman web palsu dan penipuan dalam talian melalui Microsoft Defender SmartScreen ialah:",
+                options: [
+                    "Disk Cleanup",
+                    "Enhanced Phishing Protection",
+                    "Snap Layouts",
+                    "File History"
+                ],
+                answer: 1,
+                explanation: "Phishing Protection dalam Microsoft Defender SmartScreen menyekat laman web palsu, penipuan dalam talian, dan memberi amaran terhadap penggunaan kata laluan yang tidak selamat."
+            },
+
+            // BAB 5 (4 Soalan)
+            {
+                id: 17,
+                chapter: 5,
+                question: "Sistem pengoperasian mudah alih manakah yang bersifat sumber tertutup (Proprietary / Closed-Source) dan dibangunkan secara eksklusif untuk peranti iPhone dan iPad?",
+                options: [
+                    "Google Android",
+                    "Apple iOS",
+                    "Microsoft Windows Phone",
+                    "Ubuntu Touch"
+                ],
+                answer: 1,
+                explanation: "Apple iOS dibangunkan secara eksklusif oleh Apple Inc. untuk perkakasan Apple sahaja (iPhone/iPad) dan terkenal dengan ekosistem tertutup yang stabil serta selamat."
+            },
+            {
+                id: 18,
+                chapter: 5,
+                question: "Manakah antara berikut merupakan perbezaan tepat antara Android dan iOS?",
+                options: [
+                    "Android mempunyai tahap penyesuaian (customization) dan sokongan widget yang lebih fleksibel berbanding iOS",
+                    "iOS menggunakan Google Play Store sebagai stor aplikasi utama",
+                    "Android hanya boleh dipasang pada telefon pintar keluaran Google sahaja",
+                    "iOS adalah sistem pengoperasian sumber terbuka (open-source)"
+                ],
+                answer: 0,
+                explanation: "Android berasaskan sumber terbuka (AOSP), digunakan oleh pelbagai jenama (Samsung, Xiaomi, Oppo, Vivo), dan menawarkan tahap penyesuaian serta widget yang sangat fleksibel."
+            },
+            {
+                id: 19,
+                chapter: 5,
+                question: "Pada antara muka sentuh Android, bahagian paling atas skrin yang memaparkan tahap bateri, isyarat rangkaian, masa dan ikon pemberitahuan dipanggil:",
+                options: [
+                    "Navigation Bar",
+                    "App Drawer",
+                    "Status Bar",
+                    "Control Center"
+                ],
+                answer: 2,
+                explanation: "Status Bar terletak di bahagian atas skrin Android dan memaparkan maklumat status sistem seperti bateri, isyarat Wi-Fi/selular, masa, dan notifikasi."
+            },
+            {
+                id: 20,
+                chapter: 5,
+                question: "Bagaimanakah cara untuk mencipta folder aplikasi pada kedua-dua skrin utama peranti Android dan iOS?",
+                options: [
+                    "Menekan butang kuasa dan butang kelantangan serentak",
+                    "Menekan lama satu ikon aplikasi dan menyeretnya ke atas ikon aplikasi yang lain",
+                    "Menyahpasang aplikasi melalui tetapan peranti",
+                    "Menggoncang peranti telefon pintar sebanyak tiga kali"
+                ],
+                answer: 1,
+                explanation: "Pada kedua-dua Android dan iOS, pengguna hanya perlu menekan lama (long press) satu ikon aplikasi dan menyeretnya tepat ke atas ikon aplikasi lain untuk membentuk folder baharu."
+            }
+        ];
+
+        let userRevisionAnswers = {};
+        let revisionGraded = false;
+
+        function renderRevisionQuestions() {
+            const filterVal = document.getElementById('rev-chapter-filter').value;
+            const container = document.getElementById('revision-questions-container');
+
+            const filtered = filterVal === 'all'
+                ? revisionQuestions
+                : revisionQuestions.filter(q => q.chapter === parseInt(filterVal, 10));
+
+            container.innerHTML = filtered.map((q, idx) => {
+                const selectedOpt = userRevisionAnswers[q.id];
+                const isCorrect = selectedOpt === q.answer;
+
+                return `
+                <div class="bg-white rounded-2xl shadow-sm border ${revisionGraded ? (isCorrect ? 'border-emerald-300' : 'border-rose-300') : 'border-slate-200'} p-5 sm:p-6 transition-all">
+                    <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+                        <span class="px-2.5 py-1 rounded-md bg-indigo-50 text-indigo-700 text-xs font-extrabold border border-indigo-100">
+                            Soalan ${q.id} • Bab ${q.chapter}
+                        </span>
+                        ${revisionGraded ? (
+                            isCorrect
+                                ? `<span class="px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-800 text-xs font-bold">✔ Betul (+1)</span>`
+                                : `<span class="px-2.5 py-1 rounded-full bg-rose-100 text-rose-800 text-xs font-bold">✘ Salah</span>`
+                        ) : ''}
+                    </div>
+
+                    <p class="text-sm sm:text-base font-bold text-slate-900 mb-3.5 leading-snug">${q.question}</p>
+
+                    <div class="space-y-2 text-xs sm:text-sm">
+                        ${q.options.map((opt, optIdx) => {
+                            const checked = selectedOpt === optIdx ? 'checked' : '';
+                            let labelStyle = 'border-slate-200 hover:bg-slate-50 text-slate-700';
+
+                            if (revisionGraded) {
+                                if (optIdx === q.answer) {
+                                    labelStyle = 'border-emerald-500 bg-emerald-50 text-emerald-950 font-semibold';
+                                } else if (selectedOpt === optIdx && optIdx !== q.answer) {
+                                    labelStyle = 'border-rose-400 bg-rose-50 text-rose-950';
+                                } else {
+                                    labelStyle = 'border-slate-200 opacity-70 text-slate-500';
+                                }
+                            } else if (selectedOpt === optIdx) {
+                                labelStyle = 'border-indigo-500 bg-indigo-50/70 text-indigo-950 font-semibold';
+                            }
+
+                            return `
+                            <label class="flex items-start gap-3 p-3 rounded-xl border ${labelStyle} cursor-pointer transition">
+                                <input type="radio" name="rev-q-${q.id}" value="${optIdx}" ${checked} onchange="selectRevisionOption(${q.id}, ${optIdx})" class="mt-1 text-indigo-600 focus:ring-indigo-500">
+                                <span><strong class="mr-1">${String.fromCharCode(65 + optIdx)}.</strong> ${opt}</span>
+                            </label>
+                            `;
+                        }).join('')}
+                    </div>
+
+                    ${revisionGraded ? `
+                    <div class="mt-4 p-3.5 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-700 leading-relaxed">
+                        <strong class="text-indigo-800">Penerangan Jawapan (${String.fromCharCode(65 + q.answer)}):</strong> ${q.explanation}
+                    </div>
+                    ` : ''}
+                </div>
+                `;
+            }).join('');
+        }
+
+        function selectRevisionOption(qId, optIdx) {
+            userRevisionAnswers[qId] = optIdx;
+            if (revisionGraded) {
+                renderRevisionQuestions();
+            }
+        }
+
+        function gradeRevisionQuiz() {
+            const answeredCount = Object.keys(userRevisionAnswers).length;
+            if (answeredCount === 0) {
+                showToast("Sila pilih sekurang-kurangnya satu jawapan sebelum menyemak.", false);
+                return;
+            }
+
+            revisionGraded = true;
+            let score = 0;
+            revisionQuestions.forEach(q => {
+                if (userRevisionAnswers[q.id] === q.answer) {
+                    score++;
+                }
+            });
+
+            const pct = Math.round((score / revisionQuestions.length) * 100);
+            document.getElementById('rev-score-badge').textContent = `${score}/${revisionQuestions.length}`;
+            document.getElementById('rev-score-status').textContent =
+                `Skor Anda: ${score} daripada ${revisionQuestions.length} (${pct}%) — ${pct >= 80 ? 'Cemerlang! Sedia untuk Final Exam.' : pct >= 50 ? 'Baik! Semak penerangan bagi soalan yang salah.' : 'Perlu ulang kaji semula nota Bab 1–5.'}`;
+
+            renderRevisionQuestions();
+            document.getElementById('rev-score-banner').scrollIntoView({ behavior: 'smooth', block: 'center' });
+            showToast(`Semakan selesai! Skor Ulang Kaji Akhir: ${score}/20 (${pct}%)`);
+        }
+
+        function resetRevisionQuiz() {
+            userRevisionAnswers = {};
+            revisionGraded = false;
+            document.getElementById('rev-score-badge').textContent = `0/20`;
+            document.getElementById('rev-score-status').textContent = "Belum disemak — Pilih jawapan anda dan tekan butang semak di bawah.";
+            renderRevisionQuestions();
+            showToast("Kuiz Ulang Kaji Akhir telah diset semula.", false);
+        }
+
+        // ---------------------------------------------------------------------
+        // 5. PENGURUSAN PAUTAN PENGHANTARAN TUGASAN (CIDOS / GOOGLE FORM)
+        // ---------------------------------------------------------------------
+        const STORAGE_KEY_LINKS = 'sfc21633_ca_submission_links_v1';
+        const caLinkKeys = ['pres', 'prac1', 'report', 'prac2'];
+
+        function loadSubmissionLinks() {
+            try {
+                const raw = localStorage.getItem(STORAGE_KEY_LINKS);
+                const links = raw ? JSON.parse(raw) : {};
+                caLinkKeys.forEach(key => {
+                    const url = links[key] || '';
+                    const inputEl = document.getElementById(`input-link-${key}`);
+                    const statusEl = document.getElementById(`status-link-${key}`);
+                    if (inputEl) inputEl.value = url;
+                    if (statusEl) {
+                        if (url) {
+                            statusEl.textContent = "✔ Pautan aktif disimpan";
+                            statusEl.className = "text-[11px] font-bold text-emerald-600";
+                        } else {
+                            statusEl.textContent = "Belum ditetapkan";
+                            statusEl.className = "text-[11px] font-medium text-slate-400";
+                        }
+                    }
+                });
+            } catch (e) {
+                console.error("Gagal memuatkan pautan penghantaran:", e);
+            }
+        }
+
+        function saveSubmissionLinks() {
+            try {
+                const links = {};
+                caLinkKeys.forEach(key => {
+                    const val = document.getElementById(`input-link-${key}`).value.trim();
+                    links[key] = val;
+                });
+                localStorage.setItem(STORAGE_KEY_LINKS, JSON.stringify(links));
+                loadSubmissionLinks();
+                showToast("Semua pautan penghantaran CIDOS / Google Form telah berjaya disimpan!");
+            } catch (e) {
+                showToast("Ralat semasa menyimpan pautan dalam pelayar.", false);
+            }
+        }
+
+        function clearSubmissionLinks() {
+            localStorage.removeItem(STORAGE_KEY_LINKS);
+            loadSubmissionLinks();
+            showToast("Semua pautan penghantaran telah dikosongkan.", false);
+        }
+
+        function openSubmissionLink(key) {
+            try {
+                const raw = localStorage.getItem(STORAGE_KEY_LINKS);
+                const links = raw ? JSON.parse(raw) : {};
+                let url = (links[key] || document.getElementById(`input-link-${key}`).value || '').trim();
+
+                if (!url) {
+                    showToast("Pautan belum ditetapkan. Sila tampal URL CIDOS / Google Form pada panel di atas dan klik Simpan.", false);
+                    document.getElementById(`input-link-${key}`).focus();
+                    return;
+                }
+
+                if (!/^https?:\/\//i.test(url)) {
+                    url = 'https://' + url;
+                }
+                window.open(url, '_blank', 'noopener,noreferrer');
+            } catch (e) {
+                showToast("URL tidak sah. Sila pastikan pautan bermula dengan https://", false);
+            }
+        }
+
+        // ---------------------------------------------------------------------
+        // 6. NAVIGATION HELPERS
+        // ---------------------------------------------------------------------
+        function switchMainTab(tabName) {
+            document.querySelectorAll('.main-section').forEach(sec => sec.classList.add('hidden'));
+            document.getElementById(`section-${tabName}`).classList.remove('hidden');
+
+            document.querySelectorAll('.main-tab-btn').forEach(btn => {
+                btn.classList.remove('bg-indigo-600', 'text-white', 'shadow-sm');
+                btn.classList.add('text-slate-300', 'hover:bg-slate-800', 'hover:text-white');
+            });
+            const activeTab = document.getElementById(`tab-btn-${tabName}`);
+            activeTab.classList.remove('text-slate-300', 'hover:bg-slate-800', 'hover:text-white');
+            activeTab.classList.add('bg-indigo-600', 'text-white', 'shadow-sm');
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function goToSession(sessNum) {
+            switchMainTab('formative');
+            selectFormativeSession(sessNum);
+        }
+
+        // Initialize Default Views on Load
+        window.onload = function() {
+            renderRMS(rmsData);
+            selectNoteChapter(1);
+            selectFormativeSession(1);
+            updateScoreDisplay();
+            loadSubmissionLinks();
+            renderRevisionQuestions();
+        };
+    </script>
+</body>
+</html>
